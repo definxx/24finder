@@ -10,6 +10,8 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SwapController;
+use App\Http\Controllers\CompliantController;
+
 use App\Models\Item;
 use App\Models\Category;
 Route::get('/', function () {
@@ -20,6 +22,9 @@ Route::get('/', function () {
     return view('welcome', compact('categories', 'swapItems', 'saleItems'));
   
 });
+
+
+Route::post('compliant.store', [CompliantController::class, 'store'])->name('compliant.store');
 
 Route::middleware([
     'auth:sanctum',
