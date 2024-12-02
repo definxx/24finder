@@ -25,6 +25,7 @@ Route::get('/', function () {
 
 
 Route::post('compliant.store', [CompliantController::class, 'store'])->name('compliant.store');
+Route::get('compliant', [CompliantController::class, 'compliant'])->name('compliant');
 
 Route::middleware([
     'auth:sanctum',

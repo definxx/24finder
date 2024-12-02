@@ -20,4 +20,8 @@ class CompliantController extends Controller
     $compliant->save();
     return view('success');
 }
+
+public function compliant(){
+    return view('compliant');
+}
 }

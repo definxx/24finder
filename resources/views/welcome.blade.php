@@ -1,22 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         
-        <!-- Search and Filters -->
-        <div class="bg-white py-4 shadow-md">
-            <div
-                class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center p-4"
-            >
-                <input
-                    type="text"
-                    placeholder="Search by location, price, or property type"
-                    class="w-full md:w-1/2 p-2 border border-gray-300 rounded-md mb-4 md:mb-0"
-                />
-                <button
-                    class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700"
-                >
-                    <i class="fas fa-search"></i> Search
-                </button>
-            </div>
+        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+            <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                {{ __('login') }}
+            </x-nav-link>
+        </div>
+        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+            <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
+                {{ __('register') }}
+            </x-nav-link>
         </div>
     </x-slot>
 
