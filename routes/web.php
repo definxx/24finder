@@ -13,7 +13,12 @@ use App\Http\Controllers\SwapController;
 use App\Models\Item;
 use App\Models\Category;
 Route::get('/', function () {
-    return view('welcome');
+    $categories = Category::all();
+    $items = Item::all();
+    $swapItems = $items->whereNotNull('swap_preferences'); 
+    $saleItems = $items->whereNotNull('price'); 
+    return view('welcome', compact('categories', 'swapItems', 'saleItems'));
+  
 });
 
 Route::middleware([
