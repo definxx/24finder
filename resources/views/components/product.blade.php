@@ -48,7 +48,7 @@
                             <!-- Assuming images are stored as JSON -->
                             <div class="carousel-item hidden">
                                 <div class="magnifier-container">
-                                    <img src="{{ asset('storage/' . $image) }}" data-large="{{ asset('storage/' . $image) }}" alt="Property Image" class="w-full h-48 object-cover" />
+                                    <img src="{{ asset('storage/app/public/items' . $image) }}" data-large="{{ asset('storage/' . $image) }}" alt="Property Image" class="w-full h-48 object-cover" />
                                     <div class="magnifier-lens"></div>
                                 </div>
                             </div>
