@@ -123,9 +123,15 @@
                         <i class="fas fa-image text-orange-600"></i>
                         <input class="w-full p-2 outline-none" type="file" id="images" name="images[]" accept="image/*" multiple required />
                     </div>
-                    @error('images')
-                        <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
-                    @enderror
+                   
+                    @error('images.*')
+                    <div class="text-red-600 text-sm mt-2">
+                        @foreach ($errors->get('images.*') as $message)
+                            <p>{{ $message }}</p>
+                        @endforeach
+                    </div>
+                @enderror
+
                 </div>
             
                 <!-- Submit Button -->
