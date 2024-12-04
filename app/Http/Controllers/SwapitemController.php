@@ -13,37 +13,40 @@ class SwapitemController extends Controller
         return view('components.swap');
       }
     
-      public function store(Request $request)
-{
-    $validated = $request->validate([
-        'title' => 'required|string|max:255',
-        'category' => 'required|string|max:255',
-        'description' => 'required|string',
-        'condition' => 'required|string',
-        'swap_preferences' => 'required|string|max:255', 
-        'images' => 'required|array|max:5', 
-        'images.*' => 'mimes:jpeg,png,jpg|max:2048',
-    ]);
 
-    $item = new Item();
-    $item->title = $validated['title'];
-    $item->category = $validated['category'];
-    $item->description = $validated['description'];
-    $item->condition = $validated['condition'];
-    $item->swap_preferences = $validated['swap_preferences']; // Store swap preferences
-    $item->user_id = Auth::user()->id;
-    // Handle image uploads
-    if ($request->hasFile('images')) {
-        $imagePaths = [];
-        foreach ($request->file('images') as $image) {
-            $imagePaths[] = $image->store('item_images', 'public');
+
+
+public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'description' => 'required|string',
+            'condition' => 'required|string',
+            'swap_preferences' => 'required|string|max:255', 
+            'images' => 'required|array|max:5', 
+            'images.*' => 'mimes:jpeg,png,jpg|max:2048',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
         }
-        $item->images = json_encode($imagePaths);
+        
+        $item = new Item();
+        $item->title = $request->title;
+        $item->category = $request->category;
+        $item->description = $request->description;
+        $item->condition = $request->condition;
+        $item->swap_preferences = $request->swap_preferences;
+        $item->user_id = Auth::user()->id;
+        if ($request->hasFile('images')) {
+            $images = [];
+            foreach ($request->file('images') as $image) {
+                $images[] = $image->store('item_images', 'public');
+            }
+            $item->images = json_encode($images);
+        }
+        $item->save();
+        return redirect()->route('sawp_item')->with('success', 'Item posted successfully!');
     }
-
-    $item->save();
-
-    return redirect()->route('sawp_item')->with('success', 'Item posted successfully!');
-}
 
 }

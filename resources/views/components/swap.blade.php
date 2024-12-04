@@ -1,10 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Post an Item') }}
-        </h2>
-    </x-slot>
-
+ 
     <body class="bg-gray-50 flex flex-col min-h-screen">
         <!-- Main Content -->
         <main class="flex-grow max-w-6xl mx-auto p-6">

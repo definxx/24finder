@@ -15,7 +15,8 @@
             @endif
             <form method="POST" class="bg-white p-6 rounded-lg shadow-lg" action="{{ route('items.store') }}" enctype="multipart/form-data">
                 @csrf
-
+            
+                <!-- Title Field -->
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
                         Title
@@ -28,15 +29,17 @@
                         <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
                     @enderror
                 </div>
-
+            
+                <!-- Category Field -->
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="category">
                         Category
                     </label>
                     <div class="flex items-center border border-gray-300 rounded-md">
-                        <i class="fas fa-home text-orange-600 p-2"></i>
-                        <select id="category" name="category" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                        <i class="fas fa-tags text-orange-600 p-2"></i>
+                        <select id="category" name="category" class="block w-full p-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
                             <option value="" disabled selected>Select a category</option>
+                            <!-- Categories -->
                             <option value="Electronics">Electronics</option>
                             <option value="Furniture">Furniture</option>
                             <option value="Clothing">Clothing</option>
@@ -63,14 +66,15 @@
                         <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
                     @enderror
                 </div>
-
+            
+                <!-- Condition Field -->
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="condition">
                         Condition
                     </label>
                     <div class="flex items-center border border-gray-300 rounded-md">
-                        <i class="fas fa-map-marker-alt text-orange-600 p-2"></i>
-                        <select id="condition" name="condition" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                        <i class="fas fa-cogs text-orange-600 p-2"></i>
+                        <select id="condition" name="condition" class="block w-full p-2 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
                             <option value="" disabled selected>Select the item's condition</option>
                             <option value="New">New</option>
                             <option value="Lightly Used">Lightly Used</option>
@@ -81,36 +85,39 @@
                         <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
                     @enderror
                 </div>
-
+            
+                <!-- Description Field -->
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
                         Description
                     </label>
                     <div class="flex items-center border border-gray-300 rounded-md">
-                        <i class="fas fa-map-marker-alt text-orange-600 p-2"></i>
-                        <input name="description" class="w-full p-2 outline-none" type="text" id="description" required />
+                        <i class="fas fa-pencil-alt text-orange-600 p-2"></i>
+                        <input name="description" class="w-full p-2 outline-none" type="text" id="description" placeholder="Enter a brief description" required />
                     </div>
                     @error('description')
                         <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
                     @enderror
                 </div>
-
+            
+                <!-- Price Field -->
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="price">
                         Price
                     </label>
                     <div class="flex items-center border border-gray-300 rounded-md">
-                        <i class="fas fa-map-marked-alt text-orange-600 p-2"></i>
-                        <input name="price" class="w-full p-2 outline-none" type="text" id="price" placeholder="Enter price" required />
+                        <i class="fas fa-dollar-sign text-orange-600 p-2"></i>
+                        <input name="price" class="w-full p-2 outline-none" type="number" id="price" placeholder="Enter price" required />
                     </div>
                     @error('price')
                         <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
                     @enderror
                 </div>
-
+            
+                <!-- Image Upload Field -->
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="images">
-                        Upload up to 5 images in JPG, PNG, or JPEG format.
+                        Upload up to 5 images in JPG, PNG, or JPEG format
                     </label>
                     <div class="flex items-center border border-gray-300 rounded-md p-2">
                         <i class="fas fa-image text-orange-600"></i>
@@ -120,14 +127,15 @@
                         <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
                     @enderror
                 </div>
-
+            
                 <!-- Submit Button -->
                 <div class="text-right">
-                    <button class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
+                    <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
                         <i class="fas fa-check-circle"></i> Post Property
                     </button>
                 </div>
             </form>
+            
         </main>
     </body>
 </x-app-layout>
