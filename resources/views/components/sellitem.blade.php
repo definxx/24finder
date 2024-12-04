@@ -117,8 +117,9 @@
                 <!-- Image Upload Field -->
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="images">
-                        Upload up to 5 images in JPG, PNG, or JPEG format
+                        Upload up to 5 images in JPG, PNG, or JPEG format. Each image must not exceed 3MB.
                     </label>
+                    
                     <div class="flex items-center border border-gray-300 rounded-md p-2">
                         <i class="fas fa-image text-orange-600"></i>
                         <input class="w-full p-2 outline-none" type="file" id="images" name="images[]" accept="image/*" multiple required />
