@@ -22,46 +22,50 @@
             @endphp
             
             @foreach($combinedItems as $item)
-                <div class="bg-white p-4 rounded-lg shadow-lg">
-                    <div class="carousel relative w-full overflow-hidden rounded-lg mb-4">
-                        <div class="carousel-inner">
-                            @foreach(json_decode($item->images) as $image)
-                                <div class="carousel-item">
-                                    <img src="{{ asset('storage/app/public/' . $image) }}" alt="Property Image" class="w-full h-48 object-cover" />
-                                </div>
-                            @endforeach
-                        </div>
-                        <button class="carousel-prev absolute left-0 top-1/2 transform -translate-y-1/2 bg-orange-600 text-white p-2 rounded-full">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="carousel-next absolute right-0 top-1/2 transform -translate-y-1/2 bg-orange-600 text-white p-2 rounded-full">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+            <div class="bg-white p-4 rounded-lg shadow-lg">
+                <div class="carousel relative w-full overflow-hidden rounded-lg mb-4">
+                    <div class="carousel-inner">
+                        @foreach(json_decode($item->images) as $image)
+                            <div class="carousel-item">
+                                <img src="{{ asset('storage/app/public/' . $image) }}" alt="Property Image" class="w-full h-48 object-cover" />
+                            </div>
+                        @endforeach
                     </div>
-            
-                    <!-- Property Information -->
-                    <h3 class="text-xl font-bold text-gray-700">{{ $item->title }}</h3>
-                    <p class="text-gray-500 mb-2">
-                        <i class="fas fa-map-marker-alt text-orange-600"></i>
-                        {{ $item->category }} <!-- You can replace this with a more specific location if available -->
-                    </p>
-                    <p class="text-gray-700 font-semibold mb-2">&#8358;{{ number_format($item->price, 2) }}</p>
-                    <p class="text-gray-600 mb-4">{{ $item->description }}</p>
-            
-                    <!-- Swap Preferences or Sell Text -->
-                    @if ($item->swap_preferences)
-                        <p class="text-gray-600 font-bold mb-4">Swap for {{ $item->swap_preferences }}</p>
-                    @else
-                        <p class="text-gray-600 font-bold mb-4"> For SELL</p>
-                    @endif
-            
-                    <button  class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
-                        <a href="{{ route('product.show', $item->id) }}">
-                            <i class="fas fa-info-circle"></i> View Details
-                        </a>
+                    <button class="carousel-prev absolute left-0 top-1/2 transform -translate-y-1/2 bg-orange-600 text-white p-2 rounded-full">
+                        <i class="fas fa-chevron-left"></i>
                     </button>
-                </div>  
-            @endforeach
+                    <button class="carousel-next absolute right-0 top-1/2 transform -translate-y-1/2 bg-orange-600 text-white p-2 rounded-full">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+        
+                <!-- Property Information -->
+                <h3 class="text-xl font-bold text-gray-700">{{ $item->title }}</h3>
+                <p class="text-gray-500 mb-2">
+                    <i class="fas fa-map-marker-alt text-orange-600"></i>
+                    {{ $item->category }}
+                </p>
+                <p class="text-gray-700 font-semibold mb-2">&#8358;{{ number_format($item->price, 2) }}</p>
+                <p class="text-gray-600 mb-4">{{ $item->description }}</p>
+        
+                <!-- Swap Preferences or Sell Text -->
+                @if ($item->swap_preferences)
+                    <p class="text-gray-600 font-bold mb-4">Swap for {{ $item->swap_preferences }}</p>
+                @else
+                    <p class="text-gray-600 font-bold mb-4"> For SELL</p>
+                @endif
+        
+                <!-- Display User Name -->
+                <p class="text-gray-600 mb-4">Posted by: {{ $item->user->name }} </p> <!-- Accessing user name -->
+        
+                <button class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
+                    <a href="{{ route('product.show', $item->id) }}">
+                        <i class="fas fa-info-circle"></i> View Details
+                    </a>
+                </button>
+            </div>  
+        @endforeach
+        
             
         </main>
 

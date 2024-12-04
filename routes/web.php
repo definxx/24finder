@@ -34,11 +34,12 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
         $categories = Category::all();
-        $items = Item::all();
+        $items = Item::with('user')->get(); // Eager load the user relationship
         $swapItems = $items->whereNotNull('swap_preferences'); 
         $saleItems = $items->whereNotNull('price'); 
         return view('dashboard', compact('categories', 'swapItems', 'saleItems'));
     })->name('dashboard');
+    
 
 Route::get('/message', [MessageController::class, 'index'])->name('message');
 Route::get('/swap', [SwapRequestController::class, 'index'])->name('swap');
