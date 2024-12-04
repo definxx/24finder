@@ -21,8 +21,8 @@ class SellitemController extends Controller
             'description' => 'required|string',
             'condition' => 'required|string|in:New,Lightly Used,Heavily Used',
             'price' => 'required|numeric|min:0',
-            'images' => 'required|array|min:1|max:5',
-            'images.*' => 'mimes:jpg,jpeg,png|max:2048', 
+            'images' => 'required|array|min:1|max:6',
+            'images.*' => 'mimes:jpg,jpeg,png|max:10240', 
         ]);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();

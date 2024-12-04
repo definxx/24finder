@@ -24,8 +24,8 @@ public function store(Request $request)
             'description' => 'required|string',
             'condition' => 'required|string',
             'swap_preferences' => 'required|string|max:255', 
-            'images' => 'required|array|max:5', 
-            'images.*' => 'mimes:jpeg,png,jpg|max:2048',
+            'images' => 'required|array|max:6', 
+            'images.*' => 'mimes:jpeg,png,jpg|max:10240',
         ]);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
