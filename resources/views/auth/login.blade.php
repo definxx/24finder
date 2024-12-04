@@ -78,7 +78,7 @@
                 <div class="text-center">
                     <p class="text-gray-700">
                         Don't have an account?
-                        <a href="register.html" class="text-orange-600 hover:underline">Sign up here</a>.
+                        <a href="{{route('register')}}" class="text-orange-600 hover:underline">Sign up here</a>.
                     </p>
                 </div>
             </form>
