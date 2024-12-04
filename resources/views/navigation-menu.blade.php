@@ -47,9 +47,10 @@
             <div class="flex justify-between items-center max-w-6xl mx-auto">
                 <a href="/">
                     <img src="{{ asset('logo.jpg') }}" alt="24finder" width="50" height="50">
-                
+                    <h1 class="text-2xl font-bold">24Finder</h1>
                 </a>
-                <h1 class="text-2xl font-bold">24Finder</h1>
+
+               
                 <!-- Hamburger Menu for Small Screens -->
                 <button
                     class="md:hidden text-2xl"
