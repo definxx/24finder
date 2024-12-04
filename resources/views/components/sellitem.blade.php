@@ -5,26 +5,36 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                @if (session('success'))
-                <div class="bg-green-600 text-black p-4 mb-4 rounded-md">
-                    {{ session('success') }}
-                </div>
+    <body class="bg-gray-50 flex flex-col min-h-screen">
+        <!-- Main Content -->
+        <main class="flex-grow max-w-6xl mx-auto p-6">
+            @if (session('success'))
+            <div class="bg-green-600 text-black p-4 mb-4 rounded-md">
+                {{ session('success') }}
+            </div>
             @endif
-                <form method="POST" action="{{ route('items.store') }}" enctype="multipart/form-data">
-                    @csrf
-                    
-                    <!-- Item Title -->
-                    <div class="mt-4">
-                        <x-label for="title" value="{{ __('Item Title') }}" />
-                        <x-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" placeholder="Enter a descriptive title" required autofocus />
-                    </div>
+            <form method="POST" class="bg-white p-6 rounded-lg shadow-lg" action="{{ route('items.store') }}" enctype="multipart/form-data">
+                @csrf
 
-                    <!-- Category -->
-                    <div class="mt-4">
-                        <x-label for="category" value="{{ __('Category') }}" />
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
+                        Title
+                    </label>
+                    <div class="flex items-center border border-gray-300 rounded-md">
+                        <i class="fas fa-home text-orange-600 p-2"></i>
+                        <input class="w-full p-2 outline-none" type="text" id="title" name="title" placeholder="Enter property title" required />
+                    </div>
+                    @error('title')
+                        <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="category">
+                        Category
+                    </label>
+                    <div class="flex items-center border border-gray-300 rounded-md">
+                        <i class="fas fa-home text-orange-600 p-2"></i>
                         <select id="category" name="category" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
                             <option value="" disabled selected>Select a category</option>
                             <option value="Electronics">Electronics</option>
@@ -49,16 +59,17 @@
                             <option value="Hobbies & Crafts">Hobbies & Crafts</option>
                         </select>
                     </div>
+                    @error('category')
+                        <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                    <!-- Description -->
-                    <div class="mt-4">
-                        <x-label for="description" value="{{ __('Description') }}" />
-                        <textarea id="description" name="description" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="4" placeholder="Provide details about the item..." required>{{ old('description') }}</textarea>
-                    </div>
-
-                    <!-- Condition -->
-                    <div class="mt-4">
-                        <x-label for="condition" value="{{ __('Condition') }}" />
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="condition">
+                        Condition
+                    </label>
+                    <div class="flex items-center border border-gray-300 rounded-md">
+                        <i class="fas fa-map-marker-alt text-orange-600 p-2"></i>
                         <select id="condition" name="condition" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
                             <option value="" disabled selected>Select the item's condition</option>
                             <option value="New">New</option>
@@ -66,28 +77,57 @@
                             <option value="Heavily Used">Heavily Used</option>
                         </select>
                     </div>
+                    @error('condition')
+                        <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                    <!-- Price -->
-                    <div class="mt-4">
-                        <x-label for="price" value="{{ __('Price') }}" />
-                        <x-input id="price" class="block mt-1 w-full" type="number" name="price" :value="old('price')" placeholder="What is your price" required />
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
+                        Description
+                    </label>
+                    <div class="flex items-center border border-gray-300 rounded-md">
+                        <i class="fas fa-map-marker-alt text-orange-600 p-2"></i>
+                        <input name="description" class="w-full p-2 outline-none" type="text" id="description" required />
                     </div>
+                    @error('description')
+                        <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                    <!-- Images -->
-                    <div class="mt-4">
-                        <x-label for="images" value="{{ __('Upload Images') }}" />
-                        <x-input id="images" class="block mt-1 w-full" type="file" name="images[]" multiple required />
-                        <small class="text-gray-500">Upload up to 5 images in JPG, PNG, or JPEG format.</small>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="price">
+                        Price
+                    </label>
+                    <div class="flex items-center border border-gray-300 rounded-md">
+                        <i class="fas fa-map-marked-alt text-orange-600 p-2"></i>
+                        <input name="price" class="w-full p-2 outline-none" type="text" id="price" placeholder="Enter price" required />
                     </div>
+                    @error('price')
+                        <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                    <!-- Submit Button -->
-                    <div class="flex items-center justify-end mt-4">
-                        <x-button>
-                            {{ __('Post Item') }}
-                        </x-button>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="images">
+                        Upload up to 5 images in JPG, PNG, or JPEG format.
+                    </label>
+                    <div class="flex items-center border border-gray-300 rounded-md p-2">
+                        <i class="fas fa-image text-orange-600"></i>
+                        <input class="w-full p-2 outline-none" type="file" id="images" name="images[]" accept="image/*" multiple required />
                     </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                    @error('images')
+                        <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-right">
+                    <button class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
+                        <i class="fas fa-check-circle"></i> Post Property
+                    </button>
+                </div>
+            </form>
+        </main>
+    </body>
 </x-app-layout>

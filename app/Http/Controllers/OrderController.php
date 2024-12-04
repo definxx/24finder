@@ -30,14 +30,9 @@ class OrderController extends Controller
 
     return view('success');
 }
-public function my_order()
+public function my_order() 
 {
     $myorders = Order::where('user_id', Auth::user()->id)->get();
-
-    // Check if there are no orders
-    if ($myorders->isEmpty()) {
-        return view('my_order', ['message' => 'No orders found.']);
-    }
 
     // Fetch the items for each order
     $ordersWithItems = $myorders->map(function ($order) {
@@ -48,7 +43,11 @@ public function my_order()
         ];
     });
 
-    return view('my_order', compact('ordersWithItems'));
+    // If no orders are found, pass an empty array for ordersWithItems
+    return view('my_order', [
+        'ordersWithItems' => $ordersWithItems,
+        'message' => $ordersWithItems->isEmpty() ? 'No orders found.' : null
+    ]);
 }
 
 public function viewProduct($itemId)

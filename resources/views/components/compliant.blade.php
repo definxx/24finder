@@ -1,37 +1,36 @@
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Post an Item') }}
-        </h2>
-    </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                @if (session('success'))
-                <div class="bg-green-600 text-black p-4 mb-4 rounded-md">
-                    {{ session('success') }}
-                </div>
-            @endif
-                <form method="POST" action="{{ route('compliant.store') }}" enctype="multipart/form-data">
-                    @csrf
-         
 
-                    <!-- Description -->
-                    <div class="mt-4">
-                        <x-label for="description" value="{{ __('Description') }}" />
-                        <textarea id="description" name="description" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="4" placeholder="Provide details about the item..." required>{{ old('description') }}</textarea>
-                    </div>
-
-             
-
-                    <!-- Submit Button -->
-                    <div class="flex items-center justify-end mt-4">
-                        <x-button>
-                            {{ __('Compliant') }}
-                        </x-button>
-                    </div>
-                </form>
+            @if (session('success'))
+            <div class="bg-green-600 text-black p-4 mb-4 rounded-md">
+                {{ session('success') }}
             </div>
-        </div>
-    </div>
+            @endif
+            <form method="POST" class="bg-white p-6 rounded-lg shadow-lg" action="{{ route('compliant.store') }}" enctype="multipart/form-data">
+                @csrf
+
+                
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
+                        Description
+                    </label>
+                    <div class="flex items-center border border-gray-300 rounded-md">
+                        <i class="fas fa-map-marker-alt text-orange-600 p-2"></i>
+                        <textarea name="description" class="w-full p-2 outline-none" type="text" id="description" required ></textarea>
+                    </div>
+                    @error('description')
+                        <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
+
+
+                <!-- Submit Button -->
+                <div class="text-right">
+                    <button class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
+                        <i class="fas fa-check-circle"></i> Comment
+                    </button>
+                </div>
+            </form>
+
+
