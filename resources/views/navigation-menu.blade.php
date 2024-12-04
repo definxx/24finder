@@ -1,14 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Basic Meta Tags -->
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+        <!-- SEO Meta Tags -->
+        <meta name="description" content="24Finder is your go-to platform for buying, selling, and swapping items. Find the best deals on electronics, furniture, clothing, and more!" />
+        <meta name="keywords" content="buy, sell, swap, items, electronics, furniture, clothing, trade, 24Finder, second-hand, marketplace" />
+        <meta name="author" content="24Finder Team" />
+    
+        <!-- Open Graph Tags (For Social Media Sharing) -->
+        <meta property="og:title" content="24Finder - Buy, Sell & Swap Items" />
+        <meta property="og:description" content="24Finder is a marketplace where you can buy, sell, or swap items with others. Join today to start trading and finding great deals!" />
+        <meta property="og:image" content="https://example.com/path/to/your/image.jpg" />
+        <meta property="og:url" content="https://www.24finder.com" />
+        <meta property="og:type" content="website" />
+    
+        <!-- Twitter Card Data (For Twitter Sharing) -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="24Finder - Buy, Sell & Swap Items" />
+        <meta name="twitter:description" content="24Finder is a marketplace where you can buy, sell, or swap items with others. Join today to start trading and finding great deals!" />
+        <meta name="twitter:image" content="https://example.com/path/to/your/image.jpg" />
+    
+        <!-- Favicon -->
+        <link rel="icon" href="https://example.com/favicon.ico" />
+    
+        <!-- External CSS and Scripts -->
         <script src="https://cdn.tailwindcss.com"></script>
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    
+        <!-- Custom Script for Menu Toggle -->
         <script>
             function toggleMenu() {
                 const menu = document.getElementById('mobile-menu');
@@ -16,6 +39,7 @@
             }
         </script>
     </head>
+    
 
     <body class="bg-gray-50 flex flex-col min-h-screen">
         <!-- Navbar -->
