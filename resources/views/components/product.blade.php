@@ -36,10 +36,9 @@
     <body class="bg-gray-50 flex flex-col min-h-screen">
         <!-- Listings -->
         <main class="flex-grow max-w-full mx-auto p-12">
-            <div class="grid flex-grow max-w-full mx-auto p-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-   
-
-@foreach($product as $item)
+            <div class="grid flex-grow max-w-full mx-auto">
+                @foreach($product as $item)
+                
                     <!-- Carousel for Property Images -->
                     <div class="carousel relative w-full overflow-hidden rounded-lg mb-4">
                         <div class="carousel-inner">
@@ -72,16 +71,16 @@
                     @if ($item->swap_preferences)
                     <!-- Swap Form -->
                     <p class="text-gray-600 font-bold mb-4">Swap for {{ $item->swap_preferences }}</p>
-                   
+
                     @if (session('success'))
                     <div class="bg-green-500 text-white p-4 rounded-lg mb-4">
                         {{ session('success') }}
                     </div>
-                @endif
-                 <form method="POST" action="{{ route('swap.store') }}" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-lg">
+                    @endif
+                    <form method="POST" action="{{ route('swap.store') }}" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-lg">
                         @csrf
                         <input type="hidden" name="item_id" value="{{ $item->id }}" />
-                    
+
                         <!-- Property Title -->
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Title</label>
@@ -90,7 +89,7 @@
                                 <input class="w-full p-2 outline-none" type="text" name="title" id="title" placeholder="Enter title" required />
                             </div>
                         </div>
-                    
+
                         <!-- Images Upload -->
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="images">Upload Images</label>
@@ -99,7 +98,7 @@
                                 <input class="w-full p-2 outline-none" type="file" name="images[]" id="images" accept="image/*" multiple />
                             </div>
                         </div>
-                    
+
                         <!-- Description -->
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="description">Description</label>
@@ -108,34 +107,29 @@
                                 <textarea class="w-full p-2 outline-none" name="description" id="description" rows="4" placeholder="Enter a brief description of your property" required></textarea>
                             </div>
                         </div>
-                    
+
                         <!-- Submit Button -->
                         <div class="text-right">
-                            <button class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
-                                <i class="fas fa-check-circle"></i> Swap
-                            </button>
+                            <button class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700"><i class="fas fa-check-circle"></i> Swap</button>
                         </div>
                     </form>
-                    
-                @else
+
+                    @else
                     <!-- Sell Form -->
                     <p class="text-gray-600 font-bold mb-4">For SELL</p>
                     <form action="{{ route('order.store') }}" method="POST" class="max-w-6xl mx-auto flex flex-col items-center p-4">
                         @csrf
                         <label for="offer" class="mb-2">Offer</label>
                         <input type="number" name="offer" placeholder="Enter your offer or leave it as is" class="w-full md:w-1/2 p-2 border border-gray-300 rounded-md mb-4" required />
-                
+
                         <label for="qty" class="mb-2">Quantity</label>
                         <input type="number" name="qty" placeholder="Enter quantity" class="w-full md:w-1/2 p-2 border border-gray-300 rounded-md mb-4" required />
-                
+
                         <input type="hidden" name="item_id" value="{{ $item->id }}" />
-                        <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
-                            <i class="fas fa-info-circle"></i> Place an order
-                        </button>
+                        <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700"><i class="fas fa-info-circle"></i> Place an order</button>
                     </form>
-                @endif
+                    @endif
                 
-                </div>
                 @endforeach
             </div>
         </main>
