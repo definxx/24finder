@@ -40,7 +40,6 @@
    
 
 @foreach($product as $item)
-                <div class="bg-white p-4 rounded-lg shadow-lg">
                     <!-- Carousel for Property Images -->
                     <div class="carousel relative w-full overflow-hidden rounded-lg mb-4">
                         <div class="carousel-inner">
