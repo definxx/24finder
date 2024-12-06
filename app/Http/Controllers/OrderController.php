@@ -28,7 +28,7 @@ class OrderController extends Controller
     $order->user_id = Auth::user()->id;
     $order->save();
 
-    return view('success');
+    return route('my_order');
 }
 public function my_order() 
 {

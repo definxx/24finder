@@ -12,6 +12,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SwapController;
 use App\Http\Controllers\CompliantController;
 
+use App\Http\Controllers\ProfileController;
 use App\Models\Item;
 use App\Models\Category;
 Route::get('/', function () {
@@ -39,8 +40,9 @@ Route::middleware([
         $saleItems = $items->whereNotNull('price'); 
         return view('dashboard', compact('categories', 'swapItems', 'saleItems'));
     })->name('dashboard');
-    
-
+    Route::post('/profile/update', [ProfileController::class, 'updateProfilePicture'])->name('profile.update');
+ 
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/message', [MessageController::class, 'index'])->name('message');
 Route::get('/swap', [SwapRequestController::class, 'index'])->name('swap');
 Route::get('/swap-request', [SwapRequestController::class, 'swap_request'])->name('swap_request');

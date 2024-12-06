@@ -66,6 +66,7 @@
                 <ul class="hidden md:flex space-x-6">
                     @auth
                     <li><a  href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" class="hover:underline">Home</a></li>
+                    <li><a href="{{ route('profile') }}" :active="request()->routeIs('profile')" class="hover:underline">Profile</a></li>
                     <li><a href="{{ route('inbox') }}" :active="request()->routeIs('inbox')" class="hover:underline">Inbox</a></li>
                     <li><a href="{{ route('swap') }}" :active="request()->routeIs('swap')" class="hover:underline">Swap</a></li>
                     <li><a href="{{ route('swap_request') }}" :active="request()->routeIs('swap_request')" class="hover:underline">Swap Request</a></li>
@@ -89,6 +90,7 @@
             class="hidden flex-col space-y-2 mt-4 md:hidden bg-orange-700 p-4 rounded">
                 @auth
                 <li><a  href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" class="hover:underline">Home</a></li>
+                <li><a href="{{ route('profile') }}" :active="request()->routeIs('profile')" class="hover:underline">Profile</a></li>
                 <li><a href="{{ route('inbox') }}" :active="request()->routeIs('inbox')" class="hover:underline">Inbox</a></li>
                 <li><a href="{{ route('swap') }}" :active="request()->routeIs('swap')" class="hover:underline">Swap</a></li>
                 <li><a href="{{ route('swap_request') }}" :active="request()->routeIs('swap_request')" class="hover:underline">Swap Request</a></li>
