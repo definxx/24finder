@@ -70,9 +70,9 @@
                     <li><a href="{{ route('sell_item') }}" :active="request()->routeIs('sell_item')" class="hover:underline">Sell Item</a></li>
                     <li><a href="{{ route('sawp_item') }}" :active="request()->routeIs('sawp_item')" class="hover:underline">Swap Item</a></li>
                     <li><a href="{{ route('my_order') }}" :active="request()->routeIs('my_order')" class="hover:underline">My Order</a></li>
-                    <li><a href="{{ route('compliant') }}" :active="request()->routeIs('compliant')" class="hover:underline">Compliant</a></li>
+                    <li><a href="{{ route('compliant') }}" :active="request()->routeIs('compliant')" class="hover:underline">Complaints</a></li>
                     @else
-                    <li><a href="{{ route('compliant') }}" :active="request()->routeIs('compliant')" class="hover:underline">Compliant</a></li>
+                    <li><a href="{{ route('compliant') }}" :active="request()->routeIs('compliant')" class="hover:underline">Complaints</a></li>
                     <li><a href="{{ route('login') }}" :active="request()->routeIs('login')" class="hover:underline">Login</a></li>
                     <li><a href="{{ route('register') }}" :active="request()->routeIs('register')" class="hover:underline">Register</a></li>
                     @endauth
