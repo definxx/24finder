@@ -55,8 +55,15 @@
               @endif
       
               <!-- Display User Name -->
-              <p class="text-gray-600 mb-4">Posted by: {{ $item->user->name }} </p> <!-- Accessing user name -->
-      
+              <p class="text-gray-600 mb-4">
+                Posted by: 
+                @if($item->user)
+                    <a href="{{ route('user.profile', $item->user->id) }}" class="text-blue-500 hover:underline">{{ $item->user->name }}</a>
+                @else
+                    <span class="text-gray-500">Unknown User</span>
+                @endif
+            </p>
+            
               <!-- Share Button with Share Icon -->
               <div class="flex items-center space-x-2 mb-4">
                   <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('product.show', $item->id)) }}" target="_blank" class="text-blue-600 hover:text-blue-800">

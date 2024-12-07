@@ -13,13 +13,11 @@ class ProfileController extends Controller
         // Fetch all items posted by the authenticated user
    
         $user = Auth::user();
-
+        $user_id =  $user->id;
+        $items = Item::where('user_id', $user->id)->get();
         // Pass the user data to the view
-        return view('profile', compact('user'));
+        return view('profile', compact('user','items'));
     }
-
-
-    
    
     public function updateProfilePicture(Request $request)
     {

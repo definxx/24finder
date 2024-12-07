@@ -87,4 +87,9 @@ class User extends Authenticatable
                 ->latest('created_at');
 }
 
+public function items()
+{
+    return $this->hasMany(Item::class);
+}
+
 }

@@ -1,18 +1,25 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MessageController;
-use App\Http\Controllers\SwapRequestController;
-use App\Http\Controllers\ListingController;
-use App\Http\Controllers\SwapitemController;
-use App\Http\Controllers\SellitemController;
-use App\Http\Controllers\ItemController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\SwapController;
-use App\Http\Controllers\CompliantController;
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\{
+    CompliantController,
+    ProfileController,
+    UserController,
+    SwapController,
+    OrderController,
+    ProductController,
+    ItemController,
+    SellitemController,
+    SwapitemController,
+    ListingController,
+    SwapRequestController,
+    MessageController
+
+
+};
+
+
 use App\Models\Item;
 use App\Models\Category;
 Route::get('/', function () {
@@ -67,6 +74,13 @@ Route::get('/my-listings', [ItemController::class, 'index'])->name('items.index'
 Route::get('/productview/{id}', [ProductController::class, 'show'])->name('product.view');
 Route::delete('/swap/{id}', [SwapRequestController::class, 'destroy'])->name('swap.destroy');
 
+Route::get('/user/profile/{id}', [UserController::class, 'show'])->name('user.profile');
+
+
+
+Route::get('/chat/{user_id}', [MessageController::class, 'create'])->name('chat.create');
+
+Route::post('/chat/{user_id}/send', [MessageController::class, 'send'])->name('chat.send');
 
 Route::post('/swap', [SwapController::class, 'store'])->name('swap.store');
 
