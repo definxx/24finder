@@ -11,7 +11,7 @@
                     </label>
                     <input type="file" id="profile-pic-upload" name="profile_picture" class="hidden" accept="image/*" />
                 </div>
-
+             
                 <p class="text-gray-700"><i class="fas fa-user mr-2 text-blue-500"></i> <a href="{{ route('user.profile', $user->id) }}">{{ $user->name }} </a></p>
                 <p class="text-gray-700"><i class="fas fa-envelope mr-2 text-green-500"></i> <a href="mailto:{{ $user->email }}">{{ $user->email }}</a></p>
                 <p class="text-gray-700"><i class="fas fa-phone mr-2 text-orange-500"></i> <a href="tel:{{ $user->tel }}">{{ $user->tel }}</a></p>
@@ -23,6 +23,10 @@
                 </div>
                 <p class="mt-4 text-sm text-gray-500">
                     Allowed formats: JPG, PNG. Max size: 2MB.
+                </p>
+
+                <p class="text-gray-600 mt-2">
+                    <i class="fas fa-clipboard-list text-orange-600"></i> Total Posts: {{ $postCount }}
                 </p>
             </div>
         

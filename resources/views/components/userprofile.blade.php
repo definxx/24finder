@@ -9,12 +9,15 @@
                 <p class="text-gray-700"><i class="fas fa-user mr-2 text-blue-500"></i> <a href="{{ route('user.profile', $user->id) }}">{{ $user->name }} </a></p>
                 <p class="text-gray-700"><i class="fas fa-envelope mr-2 text-green-500"></i> <a href="mailto:{{ $user->email }}">{{ $user->email }}</a></p>
                 <p class="text-gray-700"><i class="fas fa-phone mr-2 text-orange-500"></i> <a href="tel:{{ $user->tel }}">{{ $user->tel }}</a></p>
-
+                <p class="text-gray-600 mt-2">
+                    <i class="fas fa-clipboard-list text-orange-600"></i> Total Posts: {{ $postCount }}
+                </p>
                 <p class="mt-4 text-sm text-gray-500">
                     <a href="{{ route('chat.create', ['user_id' => $user->id]) }}" class="text-blue-500 hover:text-blue-700 mr-4 flex items-center"> <i class="fas fa-comment-dots mr-1"></i> Chat </a>
                     <a href="/user/profile/{{ $user->id }}" class="text-green-500 hover:text-green-700 flex items-center" target="_blank"> <i class="fas fa-share-alt mr-1"></i> Share Profile </a>
                 </p>
             </div>
+
         </form>
 
         <!-- Property Card -->
