@@ -78,6 +78,8 @@ Route::get('/user/profile/{id}', [UserController::class, 'show'])->name('user.pr
 
 
 
+Route::delete('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+
 Route::get('/chat/{user_id}', [MessageController::class, 'create'])->name('chat.create');
 
 Route::post('/chat/{user_id}/send', [MessageController::class, 'send'])->name('chat.send');

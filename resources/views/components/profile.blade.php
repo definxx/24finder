@@ -66,7 +66,18 @@
                     <a href="{{ route('product.show', $item->id) }}">
                         <i class="fas fa-info-circle"></i> View Details
                     </a>
+
+                    
+                    
                 </button>
+
+                <form action="{{ route('product.delete', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </button>
+                </form>
             </div>
         @empty
             <div class="col-span-3 text-gray-700 text-lg text-center">

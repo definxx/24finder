@@ -11,7 +11,6 @@ class UserController extends Controller
 {
     public function show($id)
 {
-
     $user = User::findOrFail($id);
     $items = Item::where('user_id', $user->id)->get();
     $postCount = $items->count();
