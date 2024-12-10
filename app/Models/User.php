@@ -82,7 +82,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(Message::class, 'sender_id', 'id')
             ->orWhere('recipient_id', $this->id)
-            ->latest();
+            ->latest('created_at');
     }
 
 public function items()
