@@ -3,7 +3,7 @@
             <!-- Profile Picture -->
             <div class="flex flex-col items-center justify-center mb-8">
                 <div class="relative">
-                    <img id="profile-picture" class="w-40 h-40 rounded-full object-cover border-4 border-orange-600 shadow-lg" src="{{ $user->profile_photo_path ?? 'logo.jpg' }}" alt="Profile Picture" />
+                    <img id="profile-picture" class="w-40 h-40 rounded-full object-cover border-4 border-orange-600 shadow-lg" src="{{ $user->profile_photo_path ? asset('storage/app/public/' . $user->profile_photo_path) : asset('images/logo.jpg') }}" alt="Profile Picture" />
                     <!-- Allow file input for updating the profile picture -->
                 </div>
                 <p class="text-gray-700"><i class="fas fa-user mr-2 text-blue-500"></i> <a href="{{ route('user.profile', $user->id) }}">{{ $user->name }} </a></p>

@@ -25,8 +25,9 @@ public function index(){
 public function destroy($id)
 {
     try {
+        $userId  = Auth::user()->id;
         $item = Item::findOrFail($id);
-        if ($item->user_id !== Auth::id()) {
+        if ($item->user_id !== $userId) {
             return redirect()->back()->withErrors(['error' => 'You are not authorized to delete this item.']);
         }
         $item->delete();
