@@ -30,7 +30,7 @@
                 @if($message->sender_id == Auth::id())
                 <div class="flex-shrink-0 w-10 h-10 rounded-full overflow-hidden">
                     <img 
-                    src="{{ $Auth::user()->profile_photo_path ? asset('storage/app/public/' . $Auth::user()->profile_photo_path) : asset('images/logo.jpg') }}"
+                    src="{{ Auth::user()->profile_photo_path ? asset('storage/app/public/' . Auth::user()->profile_photo_path) : asset('images/logo.jpg') }}"
                    
                      alt="You" class="w-full h-full object-cover" />
                 </div>
