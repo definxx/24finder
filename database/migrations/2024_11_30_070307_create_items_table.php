@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('category');
             $table->text('description');
             $table->string('condition');
+            $table->tinyInteger('status')->default(1); 
             $table->string('swap_preferences')->nullable(); // Optional field
             $table->decimal('price', 10, 2)->nullable(); // Optional price field
             $table->json('images'); // Store image paths as JSON

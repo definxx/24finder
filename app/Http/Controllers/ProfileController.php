@@ -13,7 +13,10 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $user_id =  $user->id;
-        $items = Item::where('user_id', $user->id)->get();
+        $items = Item::where('user_id', $user->id)
+                   ->where('status', 1) // Correct condition for status
+                   ->get(); // Use `first` to get a single record
+
         $postCount = $items->count();
         return view('profile', compact('user', 'items', 'postCount'));
     }

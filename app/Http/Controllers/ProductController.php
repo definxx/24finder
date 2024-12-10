@@ -10,7 +10,12 @@ class ProductController extends Controller
 {
     public function show($id)
 {
-    $product = Item::where('id',$id)->get(); 
+  
+    $product = Item::where('id', $id)
+    ->where('status', 1) // Correct condition for status
+    ->get(); // Use `first` to get a single record
+
+
     if (!$product) {
         return redirect()->route('product.index')->with('error', 'Product not found');
     }
