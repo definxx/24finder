@@ -12,7 +12,7 @@
                             <a href="{{ route('message.create', ['user_id' => $user->id]) }}" class="block hover:bg-gray-100 p-4 rounded-lg">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 w-12 h-12 rounded-full overflow-hidden">
-                                        <img src="{{ $user->profile_picture }}" alt="{{ $user->name }}" class="w-full h-full object-cover" />
+                                        <img src="{{ $user->profile_photo_path ? asset('storage/app/public/' . $user->profile_photo_path) : asset('images/logo.jpg') }}" alt="{{ $user->name }}" class="w-full h-full object-cover" />
                                     </div>
                                     <div class="ml-4">
                                         <p class="text-lg font-semibold text-gray-800">{{ $user->name }}</p>
