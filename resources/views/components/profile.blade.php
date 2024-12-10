@@ -5,7 +5,7 @@
                 <div class="relative">
                 
 
-                         <img class="w-40 h-40 rounded-full object-cover border-4 border-orange-600 shadow-lg"  src="{{ $user->profile_photo_path ? asset('storage/' . $user->profile_photo_path) : asset('images/logo.jpg') }}" alt="Profile Picture" />
+                         <img class="w-40 h-40 rounded-full object-cover border-4 border-orange-600 shadow-lg"  src="{{ $user->profile_photo_path ? asset('storage/app/public/' . $user->profile_photo_path) : asset('images/logo.jpg') }}" alt="Profile Picture" />
 
                     <!-- Allow file input for updating the profile picture -->
                     <label for="profile-pic-upload" class="absolute bottom-0 right-0 bg-orange-600 p-3 rounded-full cursor-pointer shadow-md">
