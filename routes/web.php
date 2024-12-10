@@ -35,6 +35,9 @@ Route::get('/', function () {
 Route::post('compliant.store', [CompliantController::class, 'store'])->name('compliant.store');
 Route::get('compliant', [CompliantController::class, 'compliant'])->name('compliant');
 
+Route::get('/terms', function () { 
+    return view('terms');
+})->name('terms');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -75,7 +78,6 @@ Route::get('/productview/{id}', [ProductController::class, 'show'])->name('produ
 Route::delete('/swap/{id}', [SwapRequestController::class, 'destroy'])->name('swap.destroy');
 
 Route::get('/user/profile/{id}', [UserController::class, 'show'])->name('user.profile');
-
 
 
 Route::delete('/product/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
