@@ -106,7 +106,7 @@
                         Price
                     </label>
                     <div class="flex items-center border border-gray-300 rounded-md">
-                        <i class="fas fa-dollar-sign text-orange-600 p-2"></i>
+                        <i class=" text-orange-600 p-2">&#8358;</i>
                         <input name="price" class="w-full p-2 outline-none" type="number" id="price" placeholder="Enter price" required />
                     </div>
                     @error('price')
