@@ -19,7 +19,8 @@
             <div class="flex items-start space-x-3 {{ $message->sender_id == Auth::id() ? 'justify-end' : '' }}">
                 @if($message->sender_id != Auth::id())
                 <div class="flex-shrink-0 w-10 h-10 rounded-full overflow-hidden">
-                    <img src="{{ $recipient->profile_picture }}" alt="{{ $recipient->name }}" class="w-full h-full object-cover" />
+                    <img src="{{ $recipient->profile_photo_path ? asset('storage/app/public/' . $recipient->profile_photo_path) : asset('images/logo.jpg') }}"
+                     alt="{{ $recipient->name }}" class="w-full h-full object-cover" />
                 </div>
                 @endif
                 <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
