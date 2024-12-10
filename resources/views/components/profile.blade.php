@@ -3,8 +3,9 @@
             <!-- Profile Picture -->
             <div class="flex flex-col items-center justify-center mb-8">
                 <div class="relative">
-                    <img id="profile-picture" class="w-40 h-40 rounded-full object-cover border-4 border-orange-600 shadow-lg" 
-                         src="{{ $user->profile_photo_path ?? 'logo.jpg' }}" alt="Profile Picture" />
+                 
+                    <img src="{{ $profile_photo_path ? asset('storage/app/public/' . $profile_photo_path) : asset('images/logo.jpg') }}" alt="Profile Picture" />
+
                     <!-- Allow file input for updating the profile picture -->
                     <label for="profile-pic-upload" class="absolute bottom-0 right-0 bg-orange-600 p-3 rounded-full cursor-pointer shadow-md">
                         <i class="fas fa-camera text-white"></i>
@@ -33,12 +34,8 @@
             
         </form>
         
-
-      
-     <!-- Property Card -->
      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse ($items as $item)
-            <!-- Property Card -->
             <div class="bg-white p-4 rounded-lg shadow-lg">
                 <div class="carousel relative w-full overflow-hidden rounded-lg mb-4">
                     @foreach (json_decode($item->images, true) as $image)
