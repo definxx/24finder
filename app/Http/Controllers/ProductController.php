@@ -24,19 +24,21 @@ public function index(){
 
 public function destroy($id)
 {
-    // Fetch the item by id
-    $item = Item::findOrFail($id);
+    try {
+        $item = Item::findOrFail($id);
+        if ($item->user_id !== Auth::id()) {
+            return redirect()->back()->withErrors(['error' => 'You are not authorized to delete this item.']);
+        }
+        $item->delete();
 
-    // Check if the currently logged-in user is the owner
-    if ($item->user_id !== Auth::id()) {
-        return redirect()->back()->with('error', 'You are not authorized to delete this item.');
+        return redirect()->back()->with('success', 'Item deleted successfully.');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('Error deleting item:',$e->getMessage());
+
+        return redirect()->back()->withErrors(['error' => 'Failed to delete the item. Please try again later.']);
     }
-
-    // Delete the item
-    $item->delete();
-
-    return redirect()->back()->with('success', 'Item deleted successfully.');
 }
+
 }
     
 
