@@ -134,12 +134,7 @@
             </div>
         </main>
 
-        <!-- Footer -->
-        <footer class="bg-gray-800 text-white p-4">
-            <div class="text-center">
-                &copy; 2024 24Finder All rights reserved.
-            </div>
-        </footer>
+      
 
         <!-- Carousel Script -->
         <script>

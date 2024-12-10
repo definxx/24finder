@@ -16,9 +16,8 @@
                                     </div>
                                     <div class="ml-4">
                                         <p class="text-lg font-semibold text-gray-800">{{ $user->name }}</p>
-                                        <p class="text-sm text-gray-500">
-                                            {{ $user->lastMessage->message ?? 'No messages yet' }}
-                                        </p>
+                                       
+                                        <p class="text-sm text-gray-500">Last Message: {{ $user->lastMessage ? $user->lastMessage->message : 'No messages yet.' }}</p>
                                     </div>
                                     
                                 </div>

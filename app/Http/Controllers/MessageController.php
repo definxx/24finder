@@ -49,28 +49,25 @@ class MessageController extends Controller
     public function inbox()
     {
         $users = User::whereIn('id', function ($query) {
-            $query->select('recipient_id')
-                  ->from('messages')
-                  ->where('sender_id', Auth::id())
-                  ->distinct();
-        })
-        ->orWhereIn('id', function ($query) {
-            $query->select('sender_id')
-                  ->from('messages')
-                  ->where('recipient_id', Auth::id())
-                  ->distinct();
-        })
-        ->with(['lastMessage' => function ($query) {
-            $query->where(function ($q) {
-                $q->where('sender_id', Auth::id())
-                  ->orWhere('recipient_id', Auth::id());
+                $query->select('recipient_id')
+                      ->from('messages')
+                      ->where('sender_id', Auth::id())
+                      ->distinct();
             })
-            ->latest();
-        }])
-        ->get();
+            ->orWhereIn('id', function ($query) {
+                $query->select('sender_id')
+                      ->from('messages')
+                      ->where('recipient_id', Auth::id())
+                      ->distinct();
+            })
+            ->with(['lastMessage' => function ($query) {
+                $query->latest('created_at');
+            }])
+            ->get();
     
         return view('inbox', compact('users'));
     }
+    
     
 
 }

@@ -67,25 +67,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+  
     public function sentMessages()
     {
         return $this->hasMany(Message::class, 'sender_id');
     }
 
-    /**
-     * Get messages received by the user.
-     */
     public function receivedMessages()
     {
         return $this->hasMany(Message::class, 'recipient_id');
     }
 
     public function lastMessage()
-{
-    return $this->hasOne(Message::class, 'recipient_id', 'id')
-                ->orWhere('sender_id', $this->id)
-                ->latest('created_at');
-}
+    {
+        return $this->hasOne(Message::class, 'sender_id', 'id')
+            ->orWhere('recipient_id', $this->id)
+            ->latest();
+    }
 
 public function items()
 {
