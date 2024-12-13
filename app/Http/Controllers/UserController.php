@@ -12,7 +12,7 @@ class UserController extends Controller
     public function show($id)
 {
     $user = User::findOrFail($id);
-    $items = Item::where('user_id', $user->id)->get();
+    $items = Item::where('user_id', $user->id)->where('status', 1)->get();
     $postCount = $items->count();
     return view('user', compact('user', 'items','postCount'));
 }
