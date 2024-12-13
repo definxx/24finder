@@ -1,4 +1,16 @@
-  <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+@if (session('success'))
+<div class="bg-green-100 text-green-800 px-4 py-2 rounded-md">
+    {{ session('success') }}
+</div>
+@endif
+
+@if ($errors->any())
+<div class="bg-red-100 text-red-800 px-4 py-2 rounded-md">
+    {{ $errors->first() }}
+</div>
+@endif
+
+<form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <!-- Profile Picture -->
             <div class="flex flex-col items-center justify-center mb-8">
@@ -70,13 +82,14 @@
                     
                 </button>
 
-                <form action="{{ route('product.delete', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                <form action="{{ route('product.delete', $item->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
                         <i class="fas fa-trash-alt"></i> Delete
                     </button>
                 </form>
+                
             </div>
         @empty
             <div class="col-span-3 text-gray-700 text-lg text-center">

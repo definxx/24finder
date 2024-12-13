@@ -45,7 +45,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
         $categories = Category::all();
-        $items = Item::with('user')->get(); // Eager load the user relationship
+        $items = Item::with('user')->where('status', 1)->get();
         $swapItems = $items->whereNotNull('swap_preferences'); 
         $saleItems = $items->whereNotNull('price'); 
         return view('dashboard', compact('categories', 'swapItems', 'saleItems'));

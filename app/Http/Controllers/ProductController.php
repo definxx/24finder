@@ -7,43 +7,45 @@ use App\Models\Item;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
-{
-    public function show($id)
-{
-  
-    $product = Item::where('id', $id)
-    ->where('status', 1) // Correct condition for status
-    ->get(); // Use `first` to get a single record
+    {
+        public function show($id)
+    {
+    
+        $product = Item::where('id', $id)
+        ->where('status', 1) // Correct condition for status
+        ->get(); // Use `first` to get a single record
 
 
-    if (!$product) {
-        return redirect()->route('product.index')->with('error', 'Product not found');
-    }
-
-    return view('product', compact('product'));
-}
-
-public function index(){
-    return view('product.index');
-}
-
-public function destroy($id)
-{
-    try {
-        $userId  = Auth::user()->id;
-        $item = Item::findOrFail($id);
-        if ($item->user_id !== $userId) {
-            return redirect()->back()->withErrors(['error' => 'You are not authorized to delete this item.']);
+        if (!$product) {
+            return redirect()->route('product.index')->with('error', 'Product not found');
         }
-        $item->delete();
 
-        return redirect()->back()->with('success', 'Item deleted successfully.');
-    } catch (\Exception $e) {
-        return redirect()->back()->with('Error deleting item:',$e->getMessage());
-
-        return redirect()->back()->withErrors(['error' => 'Failed to delete the item. Please try again later.']);
+        return view('product', compact('product'));
     }
+
+    public function index(){
+        return view('product.index');
+    }
+
+
+    public function destroy($id)
+{
+    $product = Item::find($id);
+    $userid = Auth::user()->id;
+    if ($product && $product->user_id === $userid) {
+        $product->status = 0; 
+        $product->save();  
+
+        return back()->with('message', 'Product status updated successfully.');
+    }
+    if (!$product) {
+        return back()->with('error', 'Product not found.');
+    }
+    return back()->with('error', 'Unauthorized action.');
 }
+
+    
+    
 
 }
     

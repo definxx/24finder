@@ -8,7 +8,7 @@ class Item extends Model
 {
  
     protected $fillable = [
-        'title', 'category', 'description', 'condition', 'price', 'images', 'user_id',
+        'title', 'category','status', 'description', 'condition', 'price', 'images', 'user_id',
     ];
     
     public function user()
