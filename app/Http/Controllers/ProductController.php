@@ -13,7 +13,7 @@ class ProductController extends Controller
     
         $product = Item::where('id', $id)
         ->where('status', 1) // Correct condition for status
-        ->get(); // Use `first` to get a single record
+        ->first(); // Use `first` to get a single record
 
 
         if (!$product) {
