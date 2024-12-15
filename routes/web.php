@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Auth;
 Route::post('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/', function () {
     $categories = Category::all();
-    $items = Item::all();
+    $items = Item::where('status', 1)->get();
     $swapItems = $items->whereNotNull('swap_preferences'); 
     $saleItems = $items->whereNotNull('price'); 
     return view('welcome', compact('categories', 'swapItems', 'saleItems'));
