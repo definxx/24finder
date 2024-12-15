@@ -14,7 +14,8 @@ use App\Http\Controllers\{
     SwapitemController,
     ListingController,
     SwapRequestController,
-    MessageController
+    MessageController,
+    SearchController
 
 
 };
@@ -22,6 +23,7 @@ use App\Http\Controllers\{
 
 use App\Models\Item;
 use App\Models\Category;
+Route::post('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/', function () {
     $categories = Category::all();
     $items = Item::all();
