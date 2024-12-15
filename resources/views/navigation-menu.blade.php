@@ -19,38 +19,30 @@
                 menu.classList.toggle("hidden");
             }
         </script>
-        <style>
-            .input-orange {
-    color: black; /* Set text color to orange */
-}
-
-        </style>
     </head>
 
     <body class="bg-gray-50 flex flex-col min-h-screen">
         <!-- Navbar -->
         <nav class="bg-orange-600 p-2 text-white">
-            <div class="flex justify-between items-center  mx-auto">
+            <div class="flex justify-between items-center max-w-6xl mx-auto">
                 <a href="/">
                     <img src="{{ asset('logo.jpg') }}" alt="24Finder Logo" width="50" height="50" />
                 </a>
-                <div class=" p-4">
+                <!-- Search Form Section -->
+                <div class="p-4">
                     <form action="{{ route('search') }}" method="POST" class="flex bg-white border border-gray-200 rounded-md p-2 shadow-sm" role="search">
                         @csrf
                         <input
                             class="form-control w-200 me-2 flex-1 p-3 border border-gray-300 rounded-l-md text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 input-orange"
-                            style="width: 10cm"
+                            style="width: 10cm;"
                             type="search"
                             placeholder="Search by location, price, or property type"
                             aria-label="Search"
                         />
-                    
+
                         <!-- Search Button -->
-                        <button class="btn btn-outline-success bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-r-md focus:outline-none flex items-center">
-                            <i class="fas fa-search mr-2"></i> Search
-                        </button>
+                        <button class="btn btn-outline-success bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-r-md focus:outline-none flex items-center"><i class="fas fa-search mr-2"></i> Search</button>
                     </form>
-                    
                 </div>
 
                 <!-- Hamburger Button -->
