@@ -62,7 +62,7 @@
             </a>
 
             <!-- Search Form Section -->
-            <div class="hidden md:block p-4">
+            <div class=" md:block p-4">
                 <form action="{{ route('search') }}" method="POST" class="flex bg-white border border-gray-200 rounded-md p-2 shadow-sm" role="search">
                     @csrf
                     <input
