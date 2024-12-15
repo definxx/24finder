@@ -66,7 +66,7 @@
                         @csrf
                         <input
                             class="form-control w-200 me-2 flex-1 p-3 border border-gray-300 rounded-l-md text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 input-orange"
-                            style="width: 10cm;"
+                         
                             type="search"
                             placeholder="Search by location, price, or property type"
                             aria-label="Search"
