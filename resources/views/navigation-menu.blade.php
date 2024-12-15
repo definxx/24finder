@@ -86,14 +86,15 @@
                 @if (Route::has('login'))
                     @auth
                     <li>
-                        <h2 class="flex items-center">
-                            <i class="fas fa-wallet mr-2 text-orange-600"></i>
+                        <h2 class="flex items-center text-white">
+                            <i class="fas fa-wallet mr-2 text-white"></i>
                             @php
-            $userPoints = Auth::check() ? Auth::user()->points : 0;
-        @endphp
-        Your Points: {{ $userPoints }}
+                                $userPoints = Auth::check() ? Auth::user()->points : 0;
+                            @endphp
+                            Your Earn: {{ $userPoints }}
                         </h2>
                     </li>
+                    
                         <li><a href="{{ route('dashboard') }}" class="hover:underline">Home</a></li>
                         <li><a href="{{ route('profile') }}" class="hover:underline">Profile</a></li>
                         <li><a href="{{ route('inbox') }}" class="hover:underline">Inbox</a></li>
@@ -116,14 +117,15 @@
             @if (Route::has('login'))
                 @auth
                 <li>
-                    <h2 class="flex items-center">
-                        <i class="fas fa-wallet mr-2 text-orange-600"></i>
+                    <h2 class="flex items-center text-white">
+                        <i class="fas fa-wallet mr-2 text-white"></i>
                         @php
-        $userPoints = Auth::check() ? Auth::user()->points : 0;
-    @endphp
-    Your Points: {{ $userPoints }}
+                            $userPoints = Auth::check() ? Auth::user()->points : 0;
+                        @endphp
+                        Your Earn: {{ $userPoints }}
                     </h2>
                 </li>
+                
                     <li><a href="{{ route('dashboard') }}" class="hover:underline text-sm">Home</a></li>
                     <li><a href="{{ route('profile') }}" class="hover:underline text-sm">Profile</a></li>
                     <li><a href="{{ route('swap') }}" class="hover:underline text-sm">Swap</a></li>
