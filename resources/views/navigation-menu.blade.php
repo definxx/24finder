@@ -19,6 +19,38 @@
                 menu.classList.toggle("hidden");
             }
         </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                let lastActivityTime = Date.now();
+            
+                // Send user activity to server
+                function sendActivityData() {
+                    const currentTime = Date.now();
+                    const timeSpent = Math.floor((currentTime - lastActivityTime) / 1000); // seconds
+                    lastActivityTime = currentTime;
+            
+                    fetch('/user/activity', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({ time_spent: timeSpent })
+                    });
+                }
+            
+                // Send activity data every 30 seconds
+                setInterval(sendActivityData, 30000);
+            
+                // Capture user actions (e.g., mouse movement or clicks)
+                document.addEventListener('mousemove', sendActivityData);
+            });
+            </script>
+ <style>
+    .input-orange {
+        color: black; /* Set text color to orange */
+    }
+</style>            
     </head>
 
     <body class="bg-gray-50 flex flex-col min-h-screen">
