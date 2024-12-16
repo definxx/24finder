@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     CompliantController,
     ProfileController,
-    UserController,
     SwapController,
     OrderController,
     ProductController,
@@ -19,6 +18,9 @@ use App\Http\Controllers\{
     UserActivityController,
 };
 
+use App\Http\Controllers\UserController;
+
+
 
 use App\Models\{
     User,
@@ -29,7 +31,7 @@ use Illuminate\Support\Facades\Auth;
 Route::post('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/', function () {
     $categories = Category::all();
-    $items = Item::where('status', 1)->get();
+    $items = Item::where('status', 1)->orderBy('created_at', 'desc')->get();
     $swapItems = $items->whereNotNull('swap_preferences'); 
     $saleItems = $items->whereNotNull('price'); 
     return view('welcome', compact('categories', 'swapItems', 'saleItems'));
@@ -47,7 +49,10 @@ Route::middleware([
 
     Route::get('/dashboard', function () {
         $categories = Category::all();
-        $items = Item::with('user')->where('status', 1)->get();
+        $items = Item::with('user')
+        ->where('status', 1)
+        ->orderBy('created_at', 'desc')
+        ->get();
         $swapItems = $items->whereNotNull('swap_preferences'); 
         $saleItems = $items->whereNotNull('price'); 
        

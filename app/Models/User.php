@@ -90,4 +90,17 @@ public function items()
     return $this->hasMany(Item::class);
 }
 
+
+public function follows()
+{
+    return $this->hasMany(Follow::class, 'follower_user_id');
+}
+
+public function followers()
+{
+    return $this->hasMany(Follow::class, 'followed_user_id');
+}
+
+
+
 }
