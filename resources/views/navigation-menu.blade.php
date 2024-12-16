@@ -128,6 +128,7 @@
                 
                     <li><a href="{{ route('dashboard') }}" class="hover:underline text-sm">Home</a></li>
                     <li><a href="{{ route('profile') }}" class="hover:underline text-sm">Profile</a></li>
+                    <li><a href="{{ route('inbox') }}" class="hover:underline">Inbox</a></li>
                     <li><a href="{{ route('swap') }}" class="hover:underline text-sm">Swap</a></li>
                     <li><a href="{{ route('swap_request') }}" class="hover:underline text-sm">Swap Request</a></li>
                     <li><a href="{{ route('sell_item') }}" class="hover:underline text-sm">Sell Item</a></li>
