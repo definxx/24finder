@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\User;
+use App\Mail\ProductNotificationMail;
+use Illuminate\Support\Facades\Mail;
+
 use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
     {
@@ -43,7 +46,18 @@ class ProductController extends Controller
     return back()->with('error', 'Unauthorized action.');
 }
 
-    
+public function store(Request $request)
+{
+    $product = Item::create($request->all());
+
+    // Notify all users
+    $users = User::all(); // Fetch all users
+    foreach ($users as $user) {
+        Mail::to($user->email)->queue(new ProductNotificationMail($product)); // Use queue for efficiency
+    }
+
+    return redirect()->back()->with('success', 'Product added and notifications sent!');
+}
     
 
 }

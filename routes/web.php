@@ -28,6 +28,7 @@ use App\Models\{
 };
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+
 Route::post('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/', function () {
     $categories = Category::all();
@@ -88,5 +89,5 @@ Route::delete('/product/delete/{id}', [ProductController::class, 'destroy'])->na
 Route::get('/chat/{user_id}', [MessageController::class, 'create'])->name('chat.create');
 Route::post('/chat/{user_id}/send', [MessageController::class, 'send'])->name('chat.send');
 Route::post('/swap', [SwapController::class, 'store'])->name('swap.store');
-
+Route::get('/send-product-emails', [ItemController::class, 'sendProductEmails']);
 });

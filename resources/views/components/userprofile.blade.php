@@ -26,9 +26,7 @@
             <i class="fas fa-clipboard-list text-orange-600"></i> Total Posts: {{ $postCount }}
         </p>
 
-    
 
-        
 
         <p class="mt-4 text-sm text-gray-500">
             <a href="{{ route('chat.create', ['user_id' => $user->id]) }}" class="text-blue-500 hover:text-blue-700 mr-4 flex items-center"> 
