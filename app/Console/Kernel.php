@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array<int, class-string>
      */
     protected $commands = [
+        // Register your custom commands here
         \App\Console\Commands\SendHourlyEmails::class,
     ];
 
@@ -35,6 +36,6 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__ . '/Commands');
+        $this->load(__DIR__ . '/Commands'); // Automatically load commands from the Commands directory
     }
 }

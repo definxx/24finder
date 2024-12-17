@@ -9,14 +9,12 @@ use App\Models\User;
 class SendHourlyEmails extends Command
 {
     /**
-     * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'email:hourly';
 
     /**
-     * The console command description.
      *
      * @var string
      */
@@ -28,11 +26,9 @@ class SendHourlyEmails extends Command
     public function handle()
     {
         $users = User::all();
-
         foreach ($users as $user) {
             Mail::to($user->email)->send(new \App\Mail\HourlyNotificationMail($user));
         }
-
         $this->info('Emails have been sent successfully.');
     }
 }

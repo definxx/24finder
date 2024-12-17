@@ -7,7 +7,7 @@
 </head>
 <body style="font-family: Arial, sans-serif; background-color: #f8f9fa; padding: 20px;">
     <div style="max-width: 600px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px;">
-        <h2 style="color: #333;">Hello, {{ $user->name }} {{ $user->lname }}</h2>
+        <h2 style="color: #333;">Hello, {{ $user->name }}</h2>
         <p style="font-size: 16px; color: #555;">
             It’s really easy to earn money on 24finder selling something you don’t need any more.
         </p>
