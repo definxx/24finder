@@ -54,7 +54,7 @@
                     &#8358;{{ number_format($item->price, 2) }}
                 </p>
                 <button class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
-                    <a href="{{ url('24finder.ng/product.show', $item->id) }}">
+                    <a href="24finder.ng">
                         <i class="fas fa-info-circle"></i> View Details
                     </a>
                 </button>
