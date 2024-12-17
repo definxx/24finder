@@ -33,8 +33,8 @@ class ItemController extends Controller
     public function sendProductEmails()
     {
         // Fetch all items from database
-        $items = Item::all();
-        
+       
+        $items = Item::where('status', 1)->orderBy('created_at', 'desc')->get();
         // Fetch all users
         $users = User::all();
 
