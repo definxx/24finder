@@ -28,7 +28,7 @@ use App\Models\{
 };
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
-
+Route::get('/send-product-emails', [ItemController::class, 'sendProductEmails']);
 Route::post('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/', function () {
     $categories = Category::all();
