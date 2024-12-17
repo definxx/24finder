@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Property Listings - Startup</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <meta name="description" content="Find the best electronics and POS machines on 24finder.ng. Affordable prices and fast delivery.">
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     </head>
 
