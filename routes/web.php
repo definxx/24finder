@@ -16,6 +16,7 @@ use App\Http\Controllers\{
     MessageController,
     SearchController,
     UserActivityController,
+    EmailController,
 };
 
 use App\Http\Controllers\UserController;
@@ -28,6 +29,10 @@ use App\Models\{
 };
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+
+
+
+Route::get('/send-email', [EmailController::class, 'sendWelcomeEmail']);
 Route::get('/send-product-emails', [ItemController::class, 'sendProductEmails']);
 Route::post('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/', function () {

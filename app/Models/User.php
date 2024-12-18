@@ -9,7 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeEmail;
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -67,7 +68,18 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-  
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            // Send welcome email automatically after user creation
+            Mail::to($user->email)->send(new WelcomeEmail(
+                'Welcome to 24finder!',
+                'Welcome to 24finder',
+                $user->name,
+                $user->lname
+            ));
+        });
+    }
     public function sentMessages()
     {
         return $this->hasMany(Message::class, 'sender_id');

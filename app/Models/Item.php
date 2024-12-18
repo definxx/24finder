@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Events\NewItemAdded;
 class Item extends Model
 {
  
@@ -19,6 +19,14 @@ class Item extends Model
     public function item()
     {
         return $this->belongsTo(Item::class, 'item_id');
+    }
+
+    protected static function booted()
+    {
+        static::created(function ($item) {
+      
+            event(new NewItemAdded($item));
+        });
     }
     
 }
