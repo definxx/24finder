@@ -37,19 +37,23 @@ class MessageController extends Controller
         $request->validate([
             'message' => 'required|string|max:1000',
         ]);
-
+    
         // Logic to store the message in the database
         $message = Message::create([
             'sender_id' => Auth::id(),
             'recipient_id' => $user_id,
             'message' => $request->input('message'),
         ]);
-        $user_id = Auth::user()->id;
-        $recipient = User::where('id',$user_id)->first();
+    
+        // Find the recipient user (the user to whom the message was sent)
+        $recipient = User::findOrFail($user_id);
+    
+        // Send email notification to the recipient (not the sender)
         Mail::to($recipient->email)->send(new MessageNotificationMail($message->message, $recipient->name));
-
+    
         return redirect()->back()->with('success', 'Message sent and notification sent to the recipient!');
     }
+    
     public function inbox()
     {
         $users = User::whereIn('id', function ($query) {
