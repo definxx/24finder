@@ -7,7 +7,9 @@ use App\Models\User;
 use App\Models\Message;  // Ensure you import the Message model
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use App\Mail\MessageNotificationMail;
+use Illuminate\Support\Facades\Mail;
+use Exception;
 class MessageController extends Controller
 {
     public function create($user_id)
@@ -37,14 +39,16 @@ class MessageController extends Controller
         ]);
 
         // Logic to store the message in the database
-        Message::create([
+        $message = Message::create([
             'sender_id' => Auth::id(),
             'recipient_id' => $user_id,
             'message' => $request->input('message'),
         ]);
+        $user_id = Auth::user()->id;
+        $recipient = User::where('id',$user_id)->first();
+        Mail::to($recipient->email)->send(new MessageNotificationMail($message->message, $recipient->name));
 
-        // Redirect back with a success message
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Message sent and notification sent to the recipient!');
     }
     public function inbox()
     {
