@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Like;
-use App\Models\Dislike;
 use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\ProductMail;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\ProductMail;
+use App\Mail\ItemLikedNotification;
+use App\Mail\ItemDislikedNotification;
+use App\Mail\ItemCommentedNotification;
 
 class ItemController extends Controller
 {
@@ -44,7 +46,7 @@ class ItemController extends Controller
 
         foreach ($items as $item) {
             foreach ($users as $user) {
-                Mail::to($user->email)->send(new ProductMail($item));
+                Mail::to($user->email)->queue(new ProductMail($item));
             }
         }
 
@@ -54,23 +56,92 @@ class ItemController extends Controller
     /**
      * Handle the 'like' action by a user.
      */
-    public function getLikesDislikes($id) {
+    public function like($id)
+    {
         $item = Item::find($id);
-    
+
         if (!$item) {
-            return response()->json(['error' => 'Item not found'], 404);
+            return redirect()->back()->withErrors(['error' => 'Item not found']);
         }
-    
-        return response()->json([
-            'likes' => $item->likes_count,
-            'dislikes' => $item->dislikes_count
-        ]);
+
+        // Check if the user has already liked or disliked the item
+        $existingLike = Like::where('user_id', Auth::user()->id)
+                            ->where('item_id', $id)
+                            ->first();
+
+        if ($existingLike) {
+            if ($existingLike->is_like) {
+                return redirect()->back()->withErrors(['error' => 'You have already liked this item']);
+            }
+
+            // Switch from dislike to like
+            $existingLike->update(['is_like' => true]);
+            $item->increment('likes_count');
+            $item->decrement('dislikes_count');
+        } else {
+            // New like
+            Like::create([
+                'user_id' => Auth::user()->id,
+                'item_id' => $id,
+                'is_like' => true,
+            ]);
+            $item->increment('likes_count');
+        }
+
+        // Send email notification to item owner
+        if ($item->user) {
+            Mail::to($item->user->email)->queue(new ItemLikedNotification($item, Auth::user()));
+        }
+
+        return redirect()->back()->with('message', 'Item liked successfully!');
     }
-    
- 
 
+    /**
+     * Handle the 'dislike' action by a user.
+     */
+    public function dislike($id)
+    {
+        $item = Item::find($id);
 
+        if (!$item) {
+            return redirect()->back()->withErrors(['error' => 'Item not found']);
+        }
 
+        // Check if the user has already liked or disliked the item
+        $existingLike = Like::where('user_id', Auth::user()->id)
+                            ->where('item_id', $id)
+                            ->first();
+
+        if ($existingLike) {
+            if (!$existingLike->is_like) {
+                return redirect()->back()->withErrors(['error' => 'You have already disliked this item']);
+            }
+
+            // Switch from like to dislike
+            $existingLike->update(['is_like' => false]);
+            $item->increment('dislikes_count');
+            $item->decrement('likes_count');
+        } else {
+            // New dislike
+            Like::create([
+                'user_id' => Auth::user()->id,
+                'item_id' => $id,
+                'is_like' => false,
+            ]);
+            $item->increment('dislikes_count');
+        }
+
+        // Send email notification to item owner
+        if ($item->user) {
+            Mail::to($item->user->email)->queue(new ItemDislikedNotification($item, Auth::user()));
+        }
+
+        return redirect()->back()->with('message', 'Item disliked successfully!');
+    }
+
+    /**
+     * Handle the 'comment' action by a user.
+     */
     public function comment(Request $request, $id)
     {
         if (!Auth::check()) {
@@ -84,110 +155,60 @@ class ItemController extends Controller
         $userId = Auth::id();
         $commentText = $request->input('comment');
 
-        Comment::create([
+        // Create a new comment
+        $comment = Comment::create([
             'item_id' => $id,
             'user_id' => $userId,
             'comment' => $commentText,
         ]);
 
+        // Fetch the item
+        $item = Item::find($id);
+
+        // Send email notification to item owner
+        if ($item->user) {
+            Mail::to($item->user->email)->queue(new ItemCommentedNotification($item, Auth::user(), $comment));
+        }
+
         return redirect()->back()->with('message', 'Comment added successfully!');
     }
 
+    /**
+     * Fetch likes and dislikes for a specific item.
+     */
+    public function getLikesDislikes($id)
+    {
+        $item = Item::find($id);
 
-
-
-public function like($id)
-{
-    $item = Item::find($id);
-
-    if (!$item) {
-        return redirect()->back()->withErrors(['error' => 'Item not found']);
-    }
-
-    $existingLike = Like::where('user_id', Auth::user()->id,)
-                        ->where('item_id', $id)
-                        ->first();
-
-    if ($existingLike) {
-        if ($existingLike->is_like) {
-            return redirect()->back()->withErrors(['error' => 'You have already liked this item']);
+        if (!$item) {
+            return response()->json(['error' => 'Item not found'], 404);
         }
 
-        // Switch from dislike to like
-        $existingLike->update(['is_like' => true]);
-        $item->increment('likes_count');
-        $item->decrement('dislikes_count');
-
-        return redirect()->back()->with('message', 'You switched your dislike to a like!');
+        return response()->json([
+            'likes' => $item->likes_count,
+            'dislikes' => $item->dislikes_count,
+        ]);
     }
 
-    // New like
-    Like::create([
-        'user_id' => Auth::user()->id,
-        'item_id' => $id,
-        'is_like' => true,
-    ]);
-    $item->increment('likes_count');
+    /**
+     * Fetch comments for a specific item.
+     */
+    public function getComments($id)
+    {
+        $item = Item::find($id);
 
-    return redirect()->back()->with('message', 'Item liked successfully!');
-}
-public function dislike($id)
-{
-    $item = Item::find($id);
-
-    if (!$item) {
-        return redirect()->back()->withErrors(['error' => 'Item not found']);
-    }
-
-    // Check if the user has already reacted to this item
-    $existingLike = Like::where('user_id', Auth::user()->id)
-                        ->where('item_id', $id)
-                        ->first();
-
-    if ($existingLike) {
-        if (!$existingLike->is_like) {
-            // User already disliked this item
-            return redirect()->back()->withErrors(['error' => 'You have already disliked this item']);
+        if (!$item) {
+            return response()->json(['error' => 'Item not found'], 404);
         }
 
-        // Switch from like to dislike
-        $existingLike->update(['is_like' => false]);
-        $item->increment('dislikes_count');
-        $item->decrement('likes_count');
+        $comments = $item->comments()->with('user:id,name')->latest()->get()->map(function ($comment) {
+            return [
+                'user_name' => $comment->user->name,
+                'comment' => $comment->comment,
+                'created_at' => $comment->created_at->format('Y-m-d H:i:s'),
+            ];
+        });
 
-        return redirect()->back()->with('message', 'You switched your like to a dislike!');
+        return response()->json($comments);
     }
-
-    // Add a new dislike
-    Like::create([
-        'user_id' => Auth::user()->id,
-        'item_id' => $id,
-        'is_like' => false,
-    ]);
-    $item->increment('dislikes_count');
-
-    return redirect()->back()->with('message', 'Item disliked successfully!');
-}
-
-public function getComments($id)
-{
-    $item = Item::find($id);
-
-    if (!$item) {
-        return response()->json(['error' => 'Item not found'], 404);
-    }
-
-    // Fetch comments with user details
-    $comments = $item->comments()->with('user:id,name')->latest()->get()->map(function ($comment) {
-        return [
-            'user_name' => $comment->user->name,
-            'comment' => $comment->comment,
-            'created_at' => $comment->created_at->format('Y-m-d H:i:s'),
-        ];
-    });
-
-    return response()->json($comments);
-}
-
-
 }

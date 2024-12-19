@@ -107,7 +107,7 @@
                     </label>
                     <div class="flex items-center border border-gray-300 rounded-md">
                         <i class=" text-orange-600 p-2">&#8358;</i>
-                        <input name="price" class="w-full p-2 outline-none" type="number" id="price" placeholder="Enter price" required />
+                        <input name="price" class="w-full p-2 outline-none" max="1000000000" type="number" id="price" placeholder="Enter price" required />
                     </div>
                     @error('price')
                         <p class="text-red-600 text-sm mt-2">{{ $message }}</p>

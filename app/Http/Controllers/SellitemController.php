@@ -20,18 +20,22 @@ class SellitemController extends Controller
           'category' => 'required|string',
           'description' => 'required|string',
           'condition' => 'required|string|in:New,Lightly Used,Heavily Used',
-          'price' => 'required|numeric|min:0',
+          'price' => 'required|numeric|min:0|max:1000000000', // Max price set to 1 billion
           'images' => 'required|array|min:1|max:6',
-          'images.*' => 'mimes:jpg,jpeg,png|max:4240',  // max size = 10MB
+          'images.*' => 'mimes:jpg,jpeg,png|max:4240', // max size = 4MB
       ], [
+          'price.max' => 'The price is too high. Please enter a realistic value.',
           'images.*.max' => 'One or more images exceed the maximum size limit of 4MB.',
           'images.*.mimes' => 'Only JPG, JPEG, and PNG images are allowed.',
       ]);
   
       if ($validator->fails()) {
+          if ($request->ajax()) {
+              return response()->json(['errors' => $validator->errors()], 422);
+          }
           return back()->withErrors($validator)->withInput();
       }
-      
+  
       $item = new Item();
       $item->title = $request->title;
       $item->category = $request->category;
@@ -47,10 +51,15 @@ class SellitemController extends Controller
           }
           $item->images = json_encode($images);
       }
-      
+  
       $item->save();
+  
+      if ($request->ajax()) {
+          return response()->json(['success' => 'Item posted successfully!'], 200);
+      }
   
       return redirect()->route('sell_item')->with('success', 'Item posted successfully!');
   }
+  
   
 }

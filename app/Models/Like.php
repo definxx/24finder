@@ -9,21 +9,18 @@ class Like extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'item_id', 'is_like'];
+    // Specify the fields that are mass assignable
+    protected $fillable = ['item_id', 'user_id', 'is_like'];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
+    // Define the relationship with the Item model
     public function item()
     {
         return $this->belongsTo(Item::class);
     }
 
-    public function likes()
-{
-    return $this->hasMany(Like::class);
-}
-
+    // Define the relationship with the User model
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
