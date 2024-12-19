@@ -5,7 +5,6 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Item;
@@ -15,18 +14,21 @@ class ItemDislikedNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
     public $item;
     public $user;
 
+    /**
+     * Create a new message instance.
+     */
     public function __construct(Item $item, User $user)
     {
         $this->item = $item;
         $this->user = $user;
     }
 
+    /**
+     * Get the message content definition.
+     */
     public function build()
     {
         return $this->subject('Your Item has been Disliked')
@@ -42,11 +44,6 @@ class ItemDislikedNotification extends Mailable
             subject: 'Item Disliked Notification',
         );
     }
-
-    /**
-     * Get the message content definition.
-     */
-    
 
     /**
      * Get the attachments for the message.

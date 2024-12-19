@@ -11,7 +11,7 @@
     <h1>Hello, {{ $item->user->name }}</h1>
     <p>We wanted to inform you that your item titled "<strong>{{ $item->title }}</strong>" has been disliked by {{ $user->name }}.</p>
     
-    <p>If you would like to respond to the feedback or take further action, please log in to your account.</p>
+    <p>If you'd like to respond or take further action, please log in to your account to view more details.</p>
 
     <p>Thank you for using our platform!</p>
 </body>
