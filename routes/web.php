@@ -37,11 +37,19 @@ Route::get('/send-product-emails', [ItemController::class, 'sendProductEmails'])
 Route::post('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/', function () {
     $categories = Category::all();
-    $items = Item::where('status', 1)->orderBy('created_at', 'desc')->get();
+    $items = Item::with(['user', 'comments.user'])
+    ->where('status', 1)
+    ->orderBy('created_at', 'desc')
+    ->get();
     $swapItems = $items->whereNotNull('swap_preferences'); 
     $saleItems = $items->whereNotNull('price'); 
     return view('welcome', compact('categories', 'swapItems', 'saleItems'));
 });
+
+
+
+
+
 Route::post('compliant.store', [CompliantController::class, 'store'])->name('compliant.store');
 Route::get('compliant', [CompliantController::class, 'compliant'])->name('compliant');
 Route::get('/terms', function () { 
@@ -53,15 +61,21 @@ Route::middleware([
     'verified',
 ])->group(function () {
 
+
+    Route::post('/item/like/{id}', [ItemController::class, 'like'])->name('item.like');
+    Route::post('/item/dislike/{id}', [ItemController::class, 'dislike'])->name('item.dislike');
+    Route::post('/item/comment/{id}', [ItemController::class, 'comment'])->name('item.comment');
+    
     Route::get('/dashboard', function () {
         $categories = Category::all();
-        $items = Item::with('user')
-        ->where('status', 1)
-        ->orderBy('created_at', 'desc')
-        ->get();
-        $swapItems = $items->whereNotNull('swap_preferences'); 
-        $saleItems = $items->whereNotNull('price'); 
-       
+        $items = Item::with(['user', 'comments.user'])
+            ->where('status', 1)
+            ->orderBy('created_at', 'desc')
+            ->get();
+    
+        $swapItems = $items->whereNotNull('swap_preferences');
+        $saleItems = $items->whereNotNull('price');
+    
         return view('dashboard', compact('categories', 'swapItems', 'saleItems'));
     })->name('dashboard');
     

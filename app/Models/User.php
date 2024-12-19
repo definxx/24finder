@@ -112,6 +112,10 @@ public function followers()
 {
     return $this->hasMany(Follow::class, 'followed_user_id');
 }
+public function likes()
+{
+    return $this->hasMany(Like::class);
+}
 
 
 

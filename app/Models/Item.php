@@ -28,5 +28,10 @@ class Item extends Model
             event(new NewItemAdded($item));
         });
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
     
 }
