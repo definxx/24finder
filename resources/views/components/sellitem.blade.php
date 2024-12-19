@@ -124,9 +124,9 @@
         <input class="w-full p-2 outline-none" type="file" id="images" name="images[]" accept="image/*,image/webp" multiple required />
     </div>
    
-    @error('images.*')
+    @error('images')
     <div class="text-red-600 text-sm mt-2">
-        @foreach ($errors->get('images.*') as $message)
+        @foreach ($errors->get('images') as $message)
             <p>{{ $message }}</p>
         @endforeach
     </div>
