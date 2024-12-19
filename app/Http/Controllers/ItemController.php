@@ -59,21 +59,21 @@ class ItemController extends Controller
     public function like($id)
     {
         $item = Item::find($id);
-
+    
         if (!$item) {
             return redirect()->back()->withErrors(['error' => 'Item not found']);
         }
-
+    
         // Check if the user has already liked or disliked the item
         $existingLike = Like::where('user_id', Auth::user()->id)
                             ->where('item_id', $id)
                             ->first();
-
+    
         if ($existingLike) {
             if ($existingLike->is_like) {
                 return redirect()->back()->withErrors(['error' => 'You have already liked this item']);
             }
-
+    
             // Switch from dislike to like
             $existingLike->update(['is_like' => true]);
             $item->increment('likes_count');
@@ -87,14 +87,15 @@ class ItemController extends Controller
             ]);
             $item->increment('likes_count');
         }
-
+    
         // Send email notification to item owner
         if ($item->user) {
             Mail::to($item->user->email)->queue(new ItemLikedNotification($item, Auth::user()));
         }
-
+    
         return redirect()->back()->with('message', 'Item liked successfully!');
     }
+    
 
     /**
      * Handle the 'dislike' action by a user.
@@ -102,21 +103,21 @@ class ItemController extends Controller
     public function dislike($id)
     {
         $item = Item::find($id);
-
+    
         if (!$item) {
             return redirect()->back()->withErrors(['error' => 'Item not found']);
         }
-
+    
         // Check if the user has already liked or disliked the item
         $existingLike = Like::where('user_id', Auth::user()->id)
                             ->where('item_id', $id)
                             ->first();
-
+    
         if ($existingLike) {
             if (!$existingLike->is_like) {
                 return redirect()->back()->withErrors(['error' => 'You have already disliked this item']);
             }
-
+    
             // Switch from like to dislike
             $existingLike->update(['is_like' => false]);
             $item->increment('dislikes_count');
@@ -130,14 +131,15 @@ class ItemController extends Controller
             ]);
             $item->increment('dislikes_count');
         }
-
+    
         // Send email notification to item owner
         if ($item->user) {
             Mail::to($item->user->email)->queue(new ItemDislikedNotification($item, Auth::user()));
         }
-
+    
         return redirect()->back()->with('message', 'Item disliked successfully!');
     }
+    
 
     /**
      * Handle the 'comment' action by a user.
@@ -147,31 +149,32 @@ class ItemController extends Controller
         if (!Auth::check()) {
             return redirect()->back()->withErrors(['error' => 'You must log in to comment on an item']);
         }
-
+    
         $request->validate([
             'comment' => 'required|string|max:255',
         ]);
-
+    
         $userId = Auth::id();
         $commentText = $request->input('comment');
-
+    
         // Create a new comment
         $comment = Comment::create([
             'item_id' => $id,
             'user_id' => $userId,
             'comment' => $commentText,
         ]);
-
+    
         // Fetch the item
         $item = Item::find($id);
-
+    
         // Send email notification to item owner
         if ($item->user) {
             Mail::to($item->user->email)->queue(new ItemCommentedNotification($item, Auth::user(), $comment));
         }
-
+    
         return redirect()->back()->with('message', 'Comment added successfully!');
     }
+    
 
     /**
      * Fetch likes and dislikes for a specific item.
