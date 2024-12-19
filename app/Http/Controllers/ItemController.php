@@ -88,9 +88,15 @@ class ItemController extends Controller
             $item->increment('likes_count');
         }
     
-        // Send email notification to item owner
-        if ($item->user) {
-            Mail::to($item->user->email)->queue(new ItemLikedNotification($item, Auth::user()));
+        // Manually fetch the user by user_id
+        $userId = $item->user_id; // Fetch the user_id from the item
+        if ($userId) {
+            // Fetch the user object using the user_id
+            $user = User::find($userId);
+            if ($user) {
+                // Send the email to the user
+                Mail::to($user->email)->queue(new ItemLikedNotification($item, Auth::user()));
+            }
         }
     
         return redirect()->back()->with('message', 'Item liked successfully!');
@@ -132,9 +138,15 @@ class ItemController extends Controller
             $item->increment('dislikes_count');
         }
     
-        // Send email notification to item owner
-        if ($item->user) {
-            Mail::to($item->user->email)->queue(new ItemDislikedNotification($item, Auth::user()));
+        // Manually fetch the user by user_id
+        $userId = $item->user_id; // Fetch the user_id from the item
+        if ($userId) {
+            // Fetch the user object using the user_id
+            $user = User::find($userId);
+            if ($user) {
+                // Send the email to the user
+                Mail::to($user->email)->queue(new ItemDislikedNotification($item, Auth::user()));
+            }
         }
     
         return redirect()->back()->with('message', 'Item disliked successfully!');
@@ -167,9 +179,15 @@ class ItemController extends Controller
         // Fetch the item
         $item = Item::find($id);
     
-        // Send email notification to item owner
-        if ($item->user) {
-            Mail::to($item->user->email)->queue(new ItemCommentedNotification($item, Auth::user(), $comment));
+        // Manually fetch the user by user_id
+        $userId = $item->user_id; // Fetch the user_id from the item
+        if ($userId) {
+            // Fetch the user object using the user_id
+            $user = User::find($userId);
+            if ($user) {
+                // Send the email to the user
+                Mail::to($user->email)->queue(new ItemCommentedNotification($item, Auth::user(), $comment));
+            }
         }
     
         return redirect()->back()->with('message', 'Comment added successfully!');
