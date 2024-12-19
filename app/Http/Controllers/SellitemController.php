@@ -22,11 +22,11 @@ class SellitemController extends Controller
           'condition' => 'required|string|in:New,Lightly Used,Heavily Used',
           'price' => 'required|numeric|min:0|max:1000000000', // Max price set to 1 billion
           'images' => 'required|array|min:1|max:6',
-          'images.*' => 'mimes:jpg,jpeg,png|max:4240', // max size = 4MB
+          'images.*' => 'mimes:jpg,jpeg,png,webp|max:4240', // Add 'webp' to allowed image formats
       ], [
           'price.max' => 'The price is too high. Please enter a realistic value.',
           'images.*.max' => 'One or more images exceed the maximum size limit of 4MB.',
-          'images.*.mimes' => 'Only JPG, JPEG, and PNG images are allowed.',
+          'images.*.mimes' => 'Only JPG, JPEG, PNG, and WEBP images are allowed.', // Update error message
       ]);
   
       if ($validator->fails()) {
@@ -60,6 +60,7 @@ class SellitemController extends Controller
   
       return redirect()->route('sell_item')->with('success', 'Item posted successfully!');
   }
+  
   
   
 }
