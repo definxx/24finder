@@ -10,6 +10,6 @@
     <h1>New Comment Posted</h1>
     <p>A new comment has been posted on an item you might be interested in:</p>
     <p><strong>Comment:</strong> {{ $comment->comment }}</p>
-    <p><a href="https://24finder.ng/products/{{ $comment->item_id }}">View Item</a></p>
+    <p><a href="https://24finder.ng/product/{{ $comment->item_id }}">View Item</a></p>
 </body>
 </html>
