@@ -13,6 +13,8 @@ use App\Mail\ProductMail;
 use App\Mail\ItemLikedNotification;
 use App\Mail\ItemDislikedNotification;
 use App\Mail\ItemCommentedNotification;
+use App\Notifications\NewCommentNotification;
+use App\Mail\NewCommentMail;
 
 class ItemController extends Controller
 {
@@ -158,43 +160,46 @@ class ItemController extends Controller
     /**
      * Handle the 'comment' action by a user.
      */
-    public function comment(Request $request, $id)
-    {
-        if (!Auth::check()) {
-            return redirect()->back()->withErrors(['error' => 'You must log in to comment on an item']);
-        }
-    
-        $request->validate([
-            'comment' => 'required|string|max:255',
-        ]);
-    
-        $userId = Auth::id();
-        $commentText = $request->input('comment');
-    
-        // Create a new comment
-        $comment = Comment::create([
-            'item_id' => $id,
-            'user_id' => $userId,
-            'comment' => $commentText,
-        ]);
-    
-        // Fetch the item
-        $item = Item::find($id);
-        if (!$item) {
-            return redirect()->back()->withErrors(['error' => 'Item not found']);
-        }
-    
-        // Get all users
-        $users = User::all();
-    
-        // Send notification to all users
-        foreach ($users as $user) {
-            Mail::to($user->email)->queue(new ItemCommentedNotification($item, $comment));
-        }
-    
-        return redirect()->back()->with('message', 'Comment added successfully!');
-    }
-    
+
+
+     
+     public function comment(Request $request, $id)
+     {
+         if (!Auth::check()) {
+             return redirect()->back()->withErrors(['error' => 'You must log in to comment on an item']);
+         }
+     
+         $request->validate([
+             'comment' => 'required|string|max:255',
+         ]);
+     
+         $userId = Auth::id();
+         $commentText = $request->input('comment');
+     
+         // Create a new comment
+         $comment = Comment::create([
+             'item_id' => $id,
+             'user_id' => $userId,
+             'comment' => $commentText,
+         ]);
+     
+         // Fetch the item
+         $item = Item::find($id);
+         if (!$item) {
+             return redirect()->back()->withErrors(['error' => 'Item not found']);
+         }
+     
+         // Get all users
+         $users = User::all(); // Fetch all users
+     
+         // Send email notifications to all users
+         foreach ($users as $user) {
+             Mail::to($user->email)->send(new NewCommentMail($comment));
+         }
+     
+         return redirect()->back()->with('message', 'Comment added successfully!');
+     }
+     
     
 
     /**
