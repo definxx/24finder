@@ -184,12 +184,12 @@ class ItemController extends Controller
     
         // Send notification to all users
         foreach ($users as $user) {
-            // Send email to each user
-            Mail::to($user->email)->queue(new ItemCommentedNotification($item, Auth::user(), $comment));
+            Mail::to($user->email)->send(new ItemCommentedNotification($item, Auth::user(), $comment));
         }
     
         return redirect()->back()->with('message', 'Comment added successfully!');
     }
+    
     
 
     /**
