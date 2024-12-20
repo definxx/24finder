@@ -39,7 +39,7 @@ class ItemLikedNotification extends Mailable
     public function build()
     {
         return $this->subject('You Have a New item liked!')
-            ->view('emails.item_liked.blade');
+            ->view('emails.item_liked');
             
     }
 
