@@ -5,36 +5,19 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Item;
-use App\Models\User;
 
-class ItemLikedNotification extends Mailable implements ShouldQueue
+class ItemLikedNotification extends Mailable
 {
     use Queueable, SerializesModels;
-
-    /**
-     * The item being liked.
-     *
-     * @var \App\Models\Item
-     */
     public $item;
-
-    /**
-     * The user who liked the item.
-     *
-     * @var \App\Models\User
-     */
     public $user;
-
     /**
      * Create a new message instance.
-     *
-     * @param \App\Models\Item $item
-     * @param \App\Models\User $user
      */
-    public function __construct(Item $item, User $user)
+    public function __construct($item, $user)
     {
         $this->item = $item;
         $this->user = $user;
@@ -42,26 +25,24 @@ class ItemLikedNotification extends Mailable implements ShouldQueue
 
     /**
      * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
      */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Your Item Has Been Liked'
+            subject: 'Item Liked',
         );
     }
 
     /**
-     * Build the message content definition.
-     *
-     * @return $this
+     * Get the message content definition.
      */
     public function build()
     {
-        return $this->subject('Your Item has been Liked')
-                    ->view('emails.item_liked'); // View for email content
+        return $this->subject('You Have a New item liked!')
+            ->view('emails.item_liked.blade');
+            
     }
+
 
     /**
      * Get the attachments for the message.

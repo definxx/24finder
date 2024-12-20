@@ -95,7 +95,7 @@ class ItemController extends Controller
             $user = User::find($userId);
             if ($user) {
                 // Send the email to the user
-                Mail::to($user->email)->queue(new ItemLikedNotification($item, Auth::user()));
+                Mail::to($user->email)->send(new ItemLikedNotification($item, Auth::user()));
             }
         }
     
@@ -145,7 +145,7 @@ class ItemController extends Controller
             $user = User::find($userId);
             if ($user) {
                 // Send the email to the user
-                Mail::to($user->email)->queue(new ItemDislikedNotification($item, Auth::user()));
+                Mail::to($user->email)->send(new ItemDislikedNotification($item, Auth::user()));
             }
         }
     
@@ -186,7 +186,7 @@ class ItemController extends Controller
             $user = User::find($userId);
             if ($user) {
                 // Send the email to the user
-                Mail::to($user->email)->queue(new ItemCommentedNotification($item, Auth::user(), $comment));
+                Mail::to($user->email)->send(new ItemCommentedNotification($item, Auth::user(), $comment));
             }
         }
     
