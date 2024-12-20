@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -8,7 +7,6 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Item;
-use App\Models\User;
 use App\Models\Comment;
 
 class ItemCommentedNotification extends Mailable
@@ -16,18 +14,18 @@ class ItemCommentedNotification extends Mailable
     use Queueable, SerializesModels;
 
     public $item;
-    public $user;
     public $comment;
+    public $user;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(Item $item, User $user, Comment $comment)
-    {
-        $this->item = $item;
-        $this->user = $user;
-        $this->comment = $comment;
-    }
+    public function __construct(Item $item, Comment $comment)
+{
+    $this->item = $item;
+    $this->comment = $comment;
+}
+
 
     /**
      * Get the message envelope.
@@ -45,7 +43,11 @@ class ItemCommentedNotification extends Mailable
     public function build()
     {
         return $this->subject('Your Item Has Been Commented On')
-                    ->view('emails.item_commented'); // Ensure this view exists
+                    ->view('emails.item_commented') // Ensure this view exists
+                    ->with([
+                        'item' => $this->item,
+                        'comment' => $this->comment,
+                    ]);
     }
 
     /**
