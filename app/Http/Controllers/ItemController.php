@@ -179,15 +179,13 @@ class ItemController extends Controller
         // Fetch the item
         $item = Item::find($id);
     
-        // Manually fetch the user by user_id
-        $user_Id = $item->user_id; // Fetch the user_id from the item
-        if ($user_Id) {
-            // Fetch the user object using the user_id
-            $user = User::find($user_Id);
-            if ($user) {
-                // Send the email to the user
-                Mail::to($user->email)->send(new ItemCommentedNotification($item, Auth::user(), $comment));
-            }
+        // Get all users
+        $users = User::all();
+    
+        // Send notification to all users
+        foreach ($users as $user) {
+            // Send email to each user
+            Mail::to($user->email)->queue(new ItemCommentedNotification($item, Auth::user(), $comment));
         }
     
         return redirect()->back()->with('message', 'Comment added successfully!');

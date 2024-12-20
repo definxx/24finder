@@ -11,12 +11,12 @@ use App\Models\Item;
 use App\Models\User;
 use App\Models\Comment;
 
-class ItemCommentedNotification extends Mailable implements ShouldQueue
+class ItemCommentedNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $item;
-    public $user;   // The user who commented
+    public $user;
     public $comment;
 
     /**
@@ -25,7 +25,7 @@ class ItemCommentedNotification extends Mailable implements ShouldQueue
     public function __construct(Item $item, User $user, Comment $comment)
     {
         $this->item = $item;
-        $this->user = $user;   // Store the user who commented
+        $this->user = $user;
         $this->comment = $comment;
     }
 
@@ -35,7 +35,7 @@ class ItemCommentedNotification extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Item Commented Notification',
+            subject: 'New Comment on Your Item!',
         );
     }
 
@@ -44,20 +44,12 @@ class ItemCommentedNotification extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        // Make sure to pass the variables (item, user, comment) to the view
-        return $this->subject('Your Item has been Commented on')
-                    ->view('emails.item_commented') // Create a Blade view for the email content
-                    ->with([
-                        'item' => $this->item,
-                        'user' => $this->user,
-                        'comment' => $this->comment,
-                    ]);
+        return $this->subject('Your Item Has Been Commented On')
+                    ->view('emails.item_commented'); // Ensure this view exists
     }
 
     /**
      * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
     public function attachments(): array
     {
