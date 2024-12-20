@@ -180,6 +180,9 @@ class ItemController extends Controller
     
         // Fetch the item
         $item = Item::find($id);
+        if (!$item) {
+            return redirect()->back()->withErrors(['error' => 'Item not found']);
+        }
     
         // Get all users
         $users = User::all();

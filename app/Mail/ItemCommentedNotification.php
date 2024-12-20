@@ -15,7 +15,7 @@ class ItemCommentedNotification extends Mailable
 
     public $item;
     public $comment;
-    public $user;
+
 
     /**
      * Create a new message instance.
@@ -33,7 +33,7 @@ class ItemCommentedNotification extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Comment on Your Item!',
+            subject: 'New Comment on Item!',
         );
     }
 
@@ -42,14 +42,8 @@ class ItemCommentedNotification extends Mailable
      */
     public function build()
     {
-        return $this->subject('Your Item Has Been Commented On')
-                    ->view('emails.item_commented') // Ensure this view exists
-                    ->with([
-                        'item' => $this->item,
-                        'comment' => $this->comment,
-                    ]);
+        return $this->view('emails.item_commented');
     }
-
     /**
      * Get the attachments for the message.
      */
