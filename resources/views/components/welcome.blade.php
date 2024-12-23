@@ -10,6 +10,14 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     </head>
 
+    <style>
+        .carousel-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+        </style>
     <body class="bg-gray-50 flex flex-col min-h-screen">
         <!-- Navbar -->
 
@@ -22,7 +30,7 @@
                         <div class="carousel-inner">
                             @foreach(json_decode($item->images) as $image)
                             <div class="carousel-item">
-                                <img src="{{ asset('storage/app/public/' . $image) }}" alt="Property Image" class="w-12 h-12 object-cover" />
+                                <img src="{{ asset('storage/app/public/' . $image) }}" alt="Property Image"  class="carousel-image" class="w-12 h-12 object-cover" />
 
                             </div>
                             @endforeach
