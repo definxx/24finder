@@ -137,15 +137,25 @@
 
     <!-- Mobile Dropdown Toggle Script -->
     <script>
+        // Toggle the visibility of the dropdown menu on click
         function toggleDropdown() {
             const dropdownMenu = document.querySelector('.relative ul');
             dropdownMenu.classList.toggle('hidden');
         }
 
+        // Toggle the mobile menu visibility
         function toggleMenu() {
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenu.classList.toggle('hidden');
         }
+
+        // Ensure dropdown works on mobile touch devices as well
+        document.querySelectorAll('.relative button').forEach(button => {
+            button.addEventListener('click', function (e) {
+                const dropdownMenu = this.nextElementSibling; // Get the corresponding dropdown menu
+                dropdownMenu.classList.toggle('hidden');
+            });
+        });
     </script>
 
 </body>
