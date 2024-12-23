@@ -120,7 +120,7 @@
                     <form action="{{ route('order.store') }}" method="POST" class="max-w-6xl mx-auto flex flex-col items-center p-4">
                         @csrf
                         <label for="offer" class="mb-2">Offer</label>
-                        <input type="number" name="offer" placeholder="Enter your offer or leave it as is" class="w-full md:w-1/2 p-2 border border-gray-300 rounded-md mb-4" required />
+                        <input type="number" name="offer" placeholder="Enter your offer or leave it as is" class="w-full md:w-1/2 p-2 border border-gray-300 rounded-md mb-4"  />
 
                         <label for="qty" class="mb-2">Quantity</label>
                         <input type="number" name="qty" placeholder="Enter quantity" class="w-full md:w-1/2 p-2 border border-gray-300 rounded-md mb-4" required />
