@@ -17,6 +17,7 @@ use App\Http\Controllers\{
     SearchController,
     UserActivityController,
     EmailController,
+    DashboardController
 };
 
 use App\Http\Controllers\UserController;
@@ -35,21 +36,10 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/send-email', [EmailController::class, 'sendWelcomeEmail']);
 Route::get('/send-product-emails', [ItemController::class, 'sendProductEmails']);
 Route::post('/search', [SearchController::class, 'index'])->name('search');
-Route::get('/', function () {
-    $categories = Category::all();
-    $items = Item::with(['user', 'comments.user'])
-    ->where('status', 1)
-    ->orderBy('created_at', 'desc')
-    ->get();
-    $swapItems = $items->whereNotNull('swap_preferences'); 
-    $saleItems = $items->whereNotNull('price'); 
-    return view('welcome', compact('categories', 'swapItems', 'saleItems'));
-});
 
+Route::get('/', [DashboardController::class, 'showWelcome']);
 
-
-
-
+Route::post('/logout', [DashboardController::class, 'logout'])->name('logout');
 Route::post('compliant.store', [CompliantController::class, 'store'])->name('compliant.store');
 Route::get('compliant', [CompliantController::class, 'compliant'])->name('compliant');
 Route::get('/terms', function () { 
@@ -65,20 +55,7 @@ Route::middleware([
     Route::post('/item/like/{id}', [ItemController::class, 'like'])->name('item.like');
     Route::post('/item/dislike/{id}', [ItemController::class, 'dislike'])->name('item.dislike');
     Route::post('/item/comment/{id}', [ItemController::class, 'comment'])->name('item.comment');
-    
-    Route::get('/dashboard', function () {
-        $categories = Category::all();
-        $items = Item::with(['user', 'comments.user'])
-            ->where('status', 1)
-            ->orderBy('created_at', 'desc')
-            ->get();
-    
-        $swapItems = $items->whereNotNull('swap_preferences');
-        $saleItems = $items->whereNotNull('price');
-    
-        return view('dashboard', compact('categories', 'swapItems', 'saleItems'));
-    })->name('dashboard');
-    
+    Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
 Route::post('/profile/update', [ProfileController::class, 'updateProfilePicture'])->name('profile.update');
 Route::post('/user/activity', [UserActivityController::class, 'logActivity']);
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');

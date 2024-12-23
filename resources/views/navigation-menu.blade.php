@@ -16,7 +16,6 @@
 
     <!-- Custom Scripts -->
 
-
     <!-- Custom Styles -->
     <style>
         .input-orange {
@@ -35,7 +34,7 @@
             </a>
 
             <!-- Search Form Section -->
-            <div class=" md:block p-4">
+            <div class="md:block p-4">
                 <form action="{{ route('search') }}" method="POST" class="flex bg-white border border-gray-200 rounded-md p-2 shadow-sm" role="search">
                     @csrf
                     <input
@@ -67,19 +66,29 @@
                             Your Earn: {{ $userPoints }}
                         </h2>
                     </li>
-                    
-                        <li><a href="{{ route('dashboard') }}" class="hover:underline">Home</a></li>
-                        <li><a href="{{ route('profile') }}" class="hover:underline">Profile</a></li>
-                        <li><a href="{{ route('inbox') }}" class="hover:underline">Inbox</a></li>
-                        <li><a href="{{ route('swap') }}" class="hover:underline">Swap</a></li>
-                        <li><a href="{{ route('swap_request') }}" class="hover:underline">Swap Request</a></li>
-                        <li><a href="{{ route('sell_item') }}" class="hover:underline">Sell Item</a></li>
-                        <li><a href="{{ route('sawp_item') }}" class="hover:underline">Swap Item</a></li>
-                        <li><a href="{{ route('my_order') }}" class="hover:underline">My Order</a></li>
-                        <li><a href="{{ route('compliant') }}" class="hover:underline">Complaints</a></li>
+                    <li><a href="{{ route('dashboard') }}" class="hover:underline">Home</a></li>
+                    <li><a href="{{ route('profile') }}" class="hover:underline">Profile</a></li>
+                    <li><a href="{{ route('inbox') }}" class="hover:underline">Inbox</a></li>
+                    <li class="relative">
+                        <button class="hover:underline focus:outline-none" onclick="toggleDropdown()">More</button>
+                        <ul class="absolute hidden bg-orange-700 text-white py-2 px-4 space-y-2 w-32 top-full left-0 mt-2 rounded shadow-lg">
+                            <li><a href="{{ route('swap') }}" class="hover:underline">Swap</a></li>
+                            <li><a href="{{ route('swap_request') }}" class="hover:underline">Swap Request</a></li>
+                            <li><a href="{{ route('sell_item') }}" class="hover:underline">Sell Item</a></li>
+                            <li><a href="{{ route('sawp_item') }}" class="hover:underline">Swap Item</a></li>
+                            <li><a href="{{ route('my_order') }}" class="hover:underline">My Order</a></li>
+                            <li><a href="{{ route('compliant') }}" class="hover:underline">Complaints</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="bg-red-500 text-white p-2 rounded-lg">Logout</button>
+                        </form>
+                    </li>
                     @else
-                        <li><a href="{{ route('login') }}" class="hover:underline">Login</a></li>
-                        <li><a href="{{ route('register') }}" class="hover:underline">Register</a></li>
+                    <li><a href="{{ route('login') }}" class="hover:underline">Login</a></li>
+                    <li><a href="{{ route('register') }}" class="hover:underline">Register</a></li>
                     @endauth
                 @endif
             </ul>
@@ -98,23 +107,47 @@
                         Your Earn: {{ $userPoints }}
                     </h2>
                 </li>
-                
-                    <li><a href="{{ route('dashboard') }}" class="hover:underline text-sm">Home</a></li>
-                    <li><a href="{{ route('profile') }}" class="hover:underline text-sm">Profile</a></li>
-                    <li><a href="{{ route('inbox') }}" class="hover:underline">Inbox</a></li>
-                    <li><a href="{{ route('swap') }}" class="hover:underline text-sm">Swap</a></li>
-                    <li><a href="{{ route('swap_request') }}" class="hover:underline text-sm">Swap Request</a></li>
-                    <li><a href="{{ route('sell_item') }}" class="hover:underline text-sm">Sell Item</a></li>
-                    <li><a href="{{ route('sawp_item') }}" class="hover:underline text-sm">Swap Item</a></li>
-                    <li><a href="{{ route('my_order') }}" class="hover:underline text-sm">My Order</a></li>
-                    <li><a href="{{ route('compliant') }}" class="hover:underline text-sm">Complaints</a></li>
+                <li><a href="{{ route('dashboard') }}" class="hover:underline text-sm">Home</a></li>
+                <li><a href="{{ route('profile') }}" class="hover:underline text-sm">Profile</a></li>
+                <li><a href="{{ route('inbox') }}" class="hover:underline">Inbox</a></li>
+                <li class="relative">
+                    <button class="hover:underline focus:outline-none" onclick="toggleDropdown()">More</button>
+                    <ul class="absolute hidden bg-orange-700 text-white py-2 px-4 space-y-2 w-32 top-full left-0 mt-2 rounded shadow-lg">
+                        <li><a href="{{ route('swap') }}" class="hover:underline">Swap</a></li>
+                        <li><a href="{{ route('swap_request') }}" class="hover:underline">Swap Request</a></li>
+                        <li><a href="{{ route('sell_item') }}" class="hover:underline">Sell Item</a></li>
+                        <li><a href="{{ route('sawp_item') }}" class="hover:underline">Swap Item</a></li>
+                        <li><a href="{{ route('my_order') }}" class="hover:underline">My Order</a></li>
+                        <li><a href="{{ route('compliant') }}" class="hover:underline">Complaints</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="bg-red-500 text-white p-2 rounded-lg">Logout</button>
+                    </form>
+                </li>
                 @else
-                    <li><a href="{{ route('login') }}" class="hover:underline text-sm">Login</a></li>
-                    <li><a href="{{ route('register') }}" class="hover:underline text-sm">Register</a></li>
+                <li><a href="{{ route('login') }}" class="hover:underline text-sm">Login</a></li>
+                <li><a href="{{ route('register') }}" class="hover:underline text-sm">Register</a></li>
                 @endauth
             @endif
         </ul>
     </nav>
+
+    <!-- Mobile Dropdown Toggle Script -->
+    <script>
+        function toggleDropdown() {
+            const dropdownMenu = document.querySelector('.relative ul');
+            dropdownMenu.classList.toggle('hidden');
+        }
+
+        function toggleMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+    </script>
+
 </body>
 
 </html>
