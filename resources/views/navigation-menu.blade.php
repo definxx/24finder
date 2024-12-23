@@ -15,34 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- Custom Scripts -->
-    <script>
-        function toggleMenu() {
-            const menu = document.getElementById("mobile-menu");
-            menu.classList.toggle("hidden");
-        }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            let lastActivityTime = Date.now();
-
-            function sendActivityData() {
-                const currentTime = Date.now();
-                const timeSpent = Math.floor((currentTime - lastActivityTime) / 1000);
-                lastActivityTime = currentTime;
-
-                fetch("/user/activity", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                    },
-                    body: JSON.stringify({ time_spent: timeSpent }),
-                });
-            }
-
-            setInterval(sendActivityData, 30000);
-            document.addEventListener("mousemove", sendActivityData);
-        });
-    </script>
 
     <!-- Custom Styles -->
     <style>
