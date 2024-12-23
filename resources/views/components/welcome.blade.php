@@ -119,7 +119,7 @@
                     </div>
 
                     <!-- View Details Button -->
-                    <a href="{{ route('product.show', $item->id) }}" class="block bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 text-center"> <i class="fas fa-info-circle"></i> Buy </a>
+                    <a href="{{ route('product.show', $item->id) }}" class="block bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 text-center"> <i class="fas fa-info-circle"></i> View </a>
                 </div>
                 @endforeach
 
