@@ -30,7 +30,7 @@
                         <div class="carousel-inner">
                             @foreach(json_decode($item->images) as $image)
                             <div class="carousel-item">
-                                <img src="{{ asset('storage/app/public/' . $image) }}" alt="Property Image"  class="carousel-image" class="w-12 h-12 object-cover" />
+                                <img src="{{ asset('storage/app/public/' . $image) }}" alt="Property Image"  class="carousel-image" class="w-40 h-40 object-cover" />
 
                             </div>
                             @endforeach
