@@ -58,7 +58,7 @@ class SellitemController extends Controller
           return response()->json(['success' => 'Item posted successfully!'], 200);
       }
   
-      return redirect()->route('sell_item')->with('success', 'Item posted successfully!');
+      return redirect()->route('dashboard')->with('success', 'Item posted successfully!');
   }
   
   
