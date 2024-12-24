@@ -28,7 +28,7 @@ class NewCommentMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Comment '.  $this->comment->content
+            $this->comment->content
         
         );
     }
