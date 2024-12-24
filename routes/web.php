@@ -37,7 +37,7 @@ Route::get('/send-email', [EmailController::class, 'sendWelcomeEmail']);
 Route::get('/send-product-emails', [ItemController::class, 'sendProductEmails']);
 Route::post('/search', [SearchController::class, 'index'])->name('search');
 
-Route::get('/', [DashboardController::class, 'showWelcome']);
+Route::get('/', [DashboardController::class, 'showWelcome'])->name('home');
 
 Route::post('/logout', [DashboardController::class, 'logout'])->name('logout');
 Route::post('compliant.store', [CompliantController::class, 'store'])->name('compliant.store');

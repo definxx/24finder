@@ -81,6 +81,7 @@
                         <span class="dislikes text-red-600">Dislikes: <span id="dislikes-{{ $item->id }}">{{ $item->dislikes_count ?? 0}}</span></span>
                     </div>
 
+                   
                     <div class="flex space-x-2 mb-4">
                         <!-- Like Button -->
                         @auth
@@ -94,11 +95,12 @@
                             @csrf
                             <button type="submit" class="dislike-btn bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"><i class="fas fa-thumbs-down"></i> Dislike</button>
                         </form>
-                        @endauth
+                       
                        
 
                         <button class="comment-btn bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600" onclick="toggleCommentSection({{ $item->id }})"><i class="fas fa-comment-alt"></i> Comment</button>
                         <!-- View Details Button -->
+                        @endauth
                     </div>
                     <!-- Comment Section -->
                     <div class="comment-section hidden mb-4" id="comment-section-{{ $item->id }}">
@@ -131,8 +133,11 @@
                     </div>
 
                     <!-- View Details Button -->
+                    @auth
                     <a href="{{ route('product.show', $item->id) }}" class="block bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 text-center"> <i class="fas fa-info-circle"></i> View </a>
-                </div>
+                
+                    @endauth
+               </div>
                 @endforeach
 
                 <!-- Tailwind Carousel Script -->

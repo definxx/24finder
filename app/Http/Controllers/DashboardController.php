@@ -72,7 +72,14 @@ class DashboardController extends Controller
             }
         } else {
             // Handle case when the user is not logged in (optional)
-            return redirect()->route('login');  // Or any other fallback
+            $categories = Category::all();
+            $items = Item::with(['user', 'comments.user'])
+                ->where('status', 1)
+                ->orderBy('created_at', 'desc')
+                ->get();
+            $swapItems = $items->whereNotNull('swap_preferences');
+            $saleItems = $items->whereNotNull('price');
+            return view('welcome', compact('categories', 'swapItems', 'saleItems'));
         }
     }
     
