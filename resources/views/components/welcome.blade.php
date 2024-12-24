@@ -106,8 +106,11 @@
                         <div id="comments-list-{{ $item->id }}" class="mb-4">
                             @forelse ($item->comments as $comment)
                             <div class="p-2 border-b">
-                                <strong>{{ $comment->user->name }}</strong>: {{ $comment->comment }}
-                                <span class="text-gray-500 text-sm">({{ $comment->created_at->diffForHumans() }})</span>
+                                <a  class="text-blue-500" href="/user/profile/{{ $comment->user->id }}">
+                                    <strong>{{ $comment->user->name }}</strong>: {{ $comment->comment }}
+                                </a>
+                               
+                                 <span class="text-gray-500 text-sm">({{ $comment->created_at->diffForHumans() }})</span>
                             </div>
                             @empty
                             <p class="text-gray-500">No comments yet. Be the first to comment!</p>
