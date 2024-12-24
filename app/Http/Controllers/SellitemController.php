@@ -18,7 +18,7 @@ class SellitemController extends Controller
       $validator = Validator::make($request->all(), [
           'title' => 'required|string|max:255',
           'category' => 'required|string',
-          'description' => 'required|string',
+          'description' => 'nullable|string',
           'condition' => 'required|string|in:New,Lightly Used,Heavily Used',
           'price' => 'required|numeric|min:0|max:1000000000', // Max price set to 1 billion
           'images' => 'required|array|min:1|max:6',
