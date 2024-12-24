@@ -107,8 +107,8 @@
                             @forelse ($item->comments as $comment)
                             <div class="p-2 border-b">
                                 <a  class="text-blue-500" href="/user/profile/{{ $comment->user->id }}">
-                                    <strong>{{ $comment->user->name }}</strong>: {{ $comment->comment }}
-                                </a>
+                                    <strong>{{ $comment->user->name }}</strong> </a>: {{ $comment->comment }}
+                               
                                
                                  <span class="text-gray-500 text-sm">({{ $comment->created_at->diffForHumans() }})</span>
                             </div>
