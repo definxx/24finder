@@ -83,7 +83,7 @@
                     </label>
                     <div class="flex items-center border border-gray-300 rounded-md">
                         <i class="fas fa-map-marker-alt text-orange-600 p-2"></i>
-                        <input name="description" class="w-full p-2 outline-none" type="text" id="description" required />
+                        <input name="description" class="w-full p-2 outline-none" type="text" id="description"  />
                     </div>
                     @error('description')
                         <p class="text-red-600 text-sm mt-2">{{ $message }}</p>

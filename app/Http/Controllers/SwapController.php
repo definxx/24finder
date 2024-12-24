@@ -12,7 +12,7 @@ class SwapController extends Controller
         $request->validate([
             'item_id' => 'required|exists:items,id',
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);

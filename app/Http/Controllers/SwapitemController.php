@@ -21,7 +21,7 @@ public function store(Request $request)
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'category' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'condition' => 'required|string',
             'swap_preferences' => 'required|string|max:255', 
             'images' => 'required|array|max:6', 
