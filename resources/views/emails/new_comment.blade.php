@@ -2,6 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-    <p><a href="https://24finder.ng/product/{{ $comment->item_id }}">View</a></p>
+    <p><a href="https://24finder.ng/product/{{ $comment->item_id }}">Replay</a></p>
 </body>
 </html>
