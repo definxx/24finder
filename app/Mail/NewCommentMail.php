@@ -38,7 +38,7 @@ class NewCommentMail extends Mailable
      */
     public function build()
 {
-    return $this->subject($this->comment) // Correct syntax for setting subject
+    return $this->subject('New Comment: ' . $this->comment->comment) // Correct syntax for setting subject
                 ->view('emails.new_comment')
                 ->with([
                     'comment' => $this->comment,
