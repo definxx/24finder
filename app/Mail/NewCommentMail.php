@@ -37,13 +37,13 @@ class NewCommentMail extends Mailable
      * Get the message content definition.
      */
     public function build()
-    {
-        return $this->subject('New Comment Posted')
-                    ->view('emails.new_comment')
-                    ->with([
-                        'comment' => $this->comment,
-                    ]);
-    }
+{
+    return $this->subject('New Comment: ' . $this->comment->content) // Correct syntax for setting subject
+                ->view('emails.new_comment')
+                ->with([
+                    'comment' => $this->comment,
+                ]);
+}
 
     /**
      * Get the attachments for the message.
