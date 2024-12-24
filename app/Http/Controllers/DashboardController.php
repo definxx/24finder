@@ -72,14 +72,8 @@ class DashboardController extends Controller
             }
         } else {
             // Handle case when the user is not logged in (optional)
-            $categories = Category::all();
-            $items = Item::with(['user', 'comments.user'])
-                ->where('status', 1)
-                ->orderBy('created_at', 'desc')
-                ->get();
-            $swapItems = $items->whereNotNull('swap_preferences');
-            $saleItems = $items->whereNotNull('price');
-            return view('welcome', compact('categories', 'swapItems', 'saleItems'));
+           
+            return redirect()->route('login'); // Or use the URL you want to redirect after logout
         }
     }
     
