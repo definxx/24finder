@@ -85,7 +85,7 @@
                         <ul>
                             @forelse ($users as $user)
                             <li class="flex justify-between items-center">
-                                <span>{{ $user->name }}  - Items Posted: {{ $user->items_count }}</span>
+                                <span>{{ $user->name }}  - Items Posted: {{ $user->items_count }} - points {{$user->points}}</span>
                                 <div class="flex space-x-3">
                                     <button class="text-blue-600 hover:underline">
                                         Edit

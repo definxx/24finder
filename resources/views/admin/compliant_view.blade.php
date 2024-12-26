@@ -46,10 +46,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="flex items-center justify-between">
-                    <p class="text-gray-700 text-sm">Total Price: <span class="font-bold">$600</span></p>
-                    <p class="text-green-600 text-sm font-semibold">Status: Confirmed</p>
-                </div>
+               
             </div>
             @endforeach
 

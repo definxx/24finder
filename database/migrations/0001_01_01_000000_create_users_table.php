@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('lname');
-            $table->string('tel');
+            $table->string('tel')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -24,9 +24,11 @@ return new class extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
             $table->integer('points')->default(0);
             $table->timestamp('last_active_time')->nullable();
+            $table->foreignId('referred_by')->nullable()->constrained('users'); // Foreign key to the referring user
             $table->timestamps();
         });
-
+        
+        
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');

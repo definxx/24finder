@@ -119,4 +119,9 @@ public function likes()
 
 
 
+public function referrals()
+{
+    return $this->hasMany(Referral::class, 'referred_by');
+}
+
 }

@@ -38,10 +38,59 @@
         <p class="mt-4 text-sm text-gray-500">
             Allowed formats: JPG, PNG. Max size: 2MB.
         </p>
+        <p class="text-gray-600 mt-2">
+            <i class="fas fa-users text-orange-600"></i> Your Family: {{ $referredCount }}
+        </p>
+        
 
         <p class="text-gray-600 mt-2"><i class="fas fa-clipboard-list text-orange-600"></i> Total Posts: {{ $postCount }}</p>
     </div>
 </form>
+<div class="bg-blue-100 p-4 rounded-md shadow-md mt-6">
+    <h3 class="text-lg font-semibold text-gray-800">Share Your Referral Link</h3>
+    <p class="text-gray-600">Invite your friends to join and earn rewards!</p>
+
+    <div class="flex items-center mt-4">
+        <!-- Referral Link -->
+        <input
+            type="text"
+            class="w-full px-3 py-2 border rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            value="{{ route('register', ['ref' => $user->id]) }}"
+            id="referral-link"
+            readonly
+        />
+
+        <!-- Copy Button -->
+        <button
+            onclick="copyReferralLink()"
+            class="ml-3 bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
+        >
+            <i class="fas fa-copy"></i> Copy
+        </button>
+    </div>
+
+    <div class="mt-4">
+        <!-- Share Button -->
+        <a
+            href="https://wa.me/?text=Join%20this%20amazing%20platform!%20Use%20my%20referral%20link:%20{{ urlencode(route('register', ['ref' => $user->id])) }}"
+            target="_blank"
+            class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+        >
+            <i class="fab fa-whatsapp"></i> Share on WhatsApp
+        </a>
+    </div>
+</div>
+
+<script>
+    function copyReferralLink() {
+        const link = document.getElementById("referral-link");
+        link.select();
+        document.execCommand("copy");
+        alert("Referral link copied to clipboard!");
+    }
+</script>
+
+
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     @forelse ($items as $item)

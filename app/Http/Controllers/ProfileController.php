@@ -2,7 +2,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
-use App\Models\User;
+use App\Models\{
+    User,
+    Referral,
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -10,16 +13,22 @@ use Illuminate\Support\Str;
 class ProfileController extends Controller
 {
     public function index()
-    {
-        $user = Auth::user();
-        $user_id =  $user->id;
-        $items = Item::where('user_id', $user->id)
-                   ->where('status', 1) // Correct condition for status
-                   ->get(); // Use `first` to get a single record
+{
+    $user = Auth::user();
+    $user_id =  $user->id;
 
-        $postCount = $items->count();
-        return view('profile', compact('user', 'items', 'postCount'));
-    }
+    // Get the number of users referred by the authenticated user
+    $referredCount = Referral::where('referred_by', $user_id)->count();
+
+    $items = Item::where('user_id', $user_id)
+                 ->where('status', 1) // Correct condition for status
+                 ->get(); // Use `get` to get all records
+
+    $postCount = $items->count();
+
+    return view('profile', compact('user', 'items', 'postCount', 'referredCount'));
+}
+
    
     
     public function updateProfilePicture(Request $request)

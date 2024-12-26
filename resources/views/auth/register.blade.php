@@ -25,7 +25,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('register') }}">
+            <form method="POST" action="{{ route('process.register') }}">
                 @csrf
                 <div class="mb-4">
                     <label for="name" class="block text-gray-700 font-medium mb-2">First Name</label>
@@ -53,12 +53,20 @@
                     <label for="tel" class="block text-gray-700 font-medium mb-2">Tel</label>
                     <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-orange-500">
                         <span class="px-3 text-gray-600"><i class="fas fa-phone"></i></span>
-                        <input type="text" id="tel" name="tel" class="w-full px-2 py-2 focus:outline-none" required value="{{ old('tel') }}" />
+                        <input
+                            type="text"
+                            id="tel"
+                            name="tel"
+                            class="w-full px-2 py-2 focus:outline-none"
+                            required
+                            value="{{ old('tel') }}"
+                        />
                     </div>
                     @error('tel')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
+                
 
                 <div class="mb-4">
                     <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
@@ -91,6 +99,15 @@
                     @error('password_confirmation')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label for="referral" class="block text-gray-700 font-medium mb-2">Referral Code (optional)</label>
+                    <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-orange-500">
+                        <span class="px-3 text-gray-600"><i class="fas fa-lock"></i></span>
+                        <input type="text" id="referral" name="referral"   value="{{ request()->get('ref', '') }}"  class="w-full px-2 py-2 focus:outline-none"  />
+                    </div>
+                   
                 </div>
 
                 <div class="mb-6">
