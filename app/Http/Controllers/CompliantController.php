@@ -24,4 +24,9 @@ class CompliantController extends Controller
 public function compliant(){
     return view('compliant');
 }
+
+public function view(){
+    $compliants = Compliant::all();
+    return view('admin.compliant_view', compact('compliants'));
+}
 }

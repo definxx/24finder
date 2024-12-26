@@ -18,8 +18,8 @@
             <div class="flex justify-between items-center max-w-6xl mx-auto">
                 <h1 class="text-2xl font-bold">Admin process</h1>
                 <ul class="flex space-x-6">
-                    <li><a href="#" class="hover:underline">Home</a></li>
-                    <li><a href="#" class="hover:underline">Settings</a></li>
+                    <li><a href="{{route('home')}}" class="hover:underline">Home</a></li>
+                    <li><a href="{{route('compliant.view')}}" class="hover:underline">compliant</a></li>
                     <li>  <form action="{{ route('logout') }}" method="POST">
                         @csrf <!-- CSRF token for security -->
                         <button type="submit" class="bg-red-500 text-white p-2 rounded-lg">Logout</button>

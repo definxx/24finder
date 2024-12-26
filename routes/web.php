@@ -41,6 +41,7 @@ Route::get('/', [DashboardController::class, 'showWelcome'])->name('home');
 
 Route::post('/logout', [DashboardController::class, 'logout'])->name('logout');
 Route::post('compliant.store', [CompliantController::class, 'store'])->name('compliant.store');
+
 Route::get('compliant', [CompliantController::class, 'compliant'])->name('compliant');
 Route::get('/terms', function () { 
     return view('terms');
@@ -51,7 +52,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
 
-
+    Route::get('compliant/view', [CompliantController::class, 'view'])->name('compliant.view');
     Route::post('/item/like/{id}', [ItemController::class, 'like'])->name('item.like');
     Route::post('/item/dislike/{id}', [ItemController::class, 'dislike'])->name('item.dislike');
     Route::post('/item/comment/{id}', [ItemController::class, 'comment'])->name('item.comment');
