@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EmailVerify; // Make sure you have the EmailVerify mailable
+
 use App\Models\Category;
 use App\Models\{
     User,
@@ -15,12 +18,23 @@ class DashboardController extends Controller
 {
 
 
-
     public function showDashboard()
     {
         // Check if the user is logged in
         if (Auth::check()) {
-            $userEmail = Auth::user()->email;
+            $user = Auth::user();
+            
+            // Check if the user's email is verified
+            if (!$user->hasVerifiedEmail()) {
+                Auth::logout(); // Log the user out
+                // Send verification email
+                Mail::to($user)->send(new EmailVerify($user));
+    
+                return redirect()->route('login')->with('status', 'Your email is not verified. Please check your email for the verification link.');
+            }
+    
+            // Continue with the logic for admins and non-admin users
+            $userEmail = $user->email;
             $adminEmail = "joshuadeinne@gmail.com";
     
             // Check if the logged-in user is the admin
@@ -41,7 +55,7 @@ class DashboardController extends Controller
                 return view('dashboard', compact('categories', 'swapItems', 'saleItems'));
             }
         } else {
-            // Handle case when the user is not logged in (optional)
+            // Handle case when the user is not logged in
             return redirect()->route('login');  // Or any other fallback
         }
     }
@@ -50,7 +64,19 @@ class DashboardController extends Controller
     {
         // Check if the user is logged in
         if (Auth::check()) {
-            $userEmail = Auth::user()->email;
+            $user = Auth::user();
+    
+            // Check if the user's email is verified
+            if (!$user->hasVerifiedEmail()) {
+                Auth::logout(); // Log the user out
+                // Send verification email
+                Mail::to($user)->send(new EmailVerify($user));
+    
+                return redirect()->route('login')->with('status', 'Your email is not verified. Please check your email for the verification link.');
+            }
+    
+            // Continue with the logic for admins and non-admin users
+            $userEmail = $user->email;
             $adminEmail = "joshuadeinne@gmail.com";
     
             // Check if the logged-in user is the admin
@@ -71,8 +97,7 @@ class DashboardController extends Controller
                 return view('welcome', compact('categories', 'swapItems', 'saleItems'));
             }
         } else {
-            // Handle case when the user is not logged in (optional)
-           
+            // Handle case when the user is not logged in
             return redirect()->route('login'); // Or use the URL you want to redirect after logout
         }
     }

@@ -17,12 +17,14 @@ use App\Http\Controllers\{
     SearchController,
     UserActivityController,
     EmailController,
-    DashboardController
+    DashboardController,
+    VerificationController,
 };
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 
 
+use App\Http\Controllers\LoginController;
 
 use App\Models\{
     User,
@@ -32,17 +34,19 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 
 
-
+Route::post('/process-login', [LoginController::class, 'processLogin'])->name('process.login');
 Route::get('/send-email', [EmailController::class, 'sendWelcomeEmail']);
 Route::get('/send-product-emails', [ItemController::class, 'sendProductEmails']);
 Route::post('/search', [SearchController::class, 'index'])->name('search');
+Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+    ->name('verification.verify');
 
 Route::get('/', [DashboardController::class, 'showWelcome'])->name('home');
-
 Route::post('/logout', [DashboardController::class, 'logout'])->name('logout');
 Route::post('compliant.store', [CompliantController::class, 'store'])->name('compliant.store');
 Route::post('/register', [RegisterController::class, 'processRegister'])->name('process.register');
 Route::get('compliant', [CompliantController::class, 'compliant'])->name('compliant');
+
 Route::get('/terms', function () { 
     return view('terms');
 })->name('terms');
@@ -52,11 +56,11 @@ Route::middleware([
     'verified',
 ])->group(function () {
 
-    Route::get('compliant/view', [CompliantController::class, 'view'])->name('compliant.view');
-    Route::post('/item/like/{id}', [ItemController::class, 'like'])->name('item.like');
-    Route::post('/item/dislike/{id}', [ItemController::class, 'dislike'])->name('item.dislike');
-    Route::post('/item/comment/{id}', [ItemController::class, 'comment'])->name('item.comment');
-    Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
+Route::get('compliant/view', [CompliantController::class, 'view'])->name('compliant.view');
+Route::post('/item/like/{id}', [ItemController::class, 'like'])->name('item.like');
+Route::post('/item/dislike/{id}', [ItemController::class, 'dislike'])->name('item.dislike');
+Route::post('/item/comment/{id}', [ItemController::class, 'comment'])->name('item.comment');
+Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
 Route::post('/profile/update', [ProfileController::class, 'updateProfilePicture'])->name('profile.update');
 Route::post('/user/activity', [UserActivityController::class, 'logActivity']);
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');

@@ -13,7 +13,11 @@
             <h2 class="text-2xl font-bold text-orange-600 text-center mb-6">
                 Create an Account
             </h2>
-
+            @if (session('status'))
+            <div class="mb-4 font-medium text-sm text-green-600">
+                {{ session('status') }}
+            </div>
+        @endif
             <!-- Display all validation errors -->
             @if ($errors->any())
                 <div class="mb-4">
@@ -54,7 +58,7 @@
                     <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-orange-500">
                         <span class="px-3 text-gray-600"><i class="fas fa-phone"></i></span>
                         <input
-                            type="text"
+                            type="number"
                             id="tel"
                             name="tel"
                             class="w-full px-2 py-2 focus:outline-none"

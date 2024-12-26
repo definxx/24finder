@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
+use App\Mail\EmailVerify; // Ensure you have the EmailVerify mailable
+
+
 class RegisterController extends Controller
 {
     public function showRegistrationForm()
@@ -15,6 +20,7 @@ class RegisterController extends Controller
         return view('auth.register');  // Show the registration form
     }
 
+   
     public function processRegister(Request $request)
     {
         // Validate the form data
@@ -26,10 +32,10 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'referral' => ['nullable', 'exists:users,id'],  // Ensure referral is an existing user ID or null
         ]);
-
+    
         // Handle referral logic
         $referredBy = null; // Default to null
-
+    
         if ($request->has('referral') && is_numeric($request->input('referral'))) {
             $referrer = User::find($request->input('referral')); // Find the referrer by user ID
             if ($referrer) {
@@ -38,7 +44,7 @@ class RegisterController extends Controller
                 $referrer->increment('points', 10); // Example: 10 points for each successful referral
             }
         }
-
+    
         // Create the new user with a unique referral code and the referrer information
         $newUser = User::create([
             'name' => $request->input('name'),
@@ -48,7 +54,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request->input('password')),
             'referred_by' => $referredBy, // Save the referral information (who referred the user)
         ]);
-
+    
         // Store the referral relationship in the Referral table
         if ($referredBy) {
             Referral::create([
@@ -56,8 +62,12 @@ class RegisterController extends Controller
                 'referred_by' => $referredBy,     // Store the referrer's ID
             ]);
         }
-
-        // Redirect to a success page or login page
-        return redirect()->route('login')->with('success', 'Registration successful. You can now log in.');
+    
+        // Send email verification link to the newly registered user
+        $newUser->sendEmailVerificationNotification();
+    
+        // Redirect to the login page with a success message
+        return redirect()->route('login')->with('success', 'Registration successful. Please check your email to verify your account.');
     }
+    
 }
