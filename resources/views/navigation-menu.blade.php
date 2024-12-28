@@ -64,8 +64,8 @@ text/x-generic navigation-menu.blade.php ( HTML document, ASCII text )
                             <i class="fas fa-wallet mr-2 text-white"></i>
                         
                             @php
-                            $userpoint = Auth::check() ? Auth::user()->points : 0;
-                        @endphp
+                        $userpoint =  User::where('id', Auth::id())->first()->points;
+                    @endphp
                         <h2>Your Earn: {{ $userpoint }}</h2>
                         
 
@@ -111,7 +111,7 @@ text/x-generic navigation-menu.blade.php ( HTML document, ASCII text )
                       
                     
                         @php
-                        $userpoint = Auth::check() ? Auth::user()->points : 0;
+                        $userpoint =  User::where('id', Auth::id())->first()->points;
                     @endphp
                     <h2>Your Earn: {{ $userpoint }}</h2>
                     
