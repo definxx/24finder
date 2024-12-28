@@ -117,7 +117,11 @@ return [
     | Supported drivers: "file", "cache"
     |
     */
-   
+    
+    'aliases' => [
+      
+        'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
+    ],
 
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),

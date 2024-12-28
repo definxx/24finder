@@ -15,10 +15,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // Schedule the email notification to be sent every hour
-        $schedule->command('email:notify-users')->hourly();
+        // Schedule the email notification to be sent every 5 minutes
+        $schedule->command('email:notify-users')->cron('*/5 * * * *');
     }
-
+    
     /**
      * Register the commands for the application.
      *

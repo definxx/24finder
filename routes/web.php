@@ -26,13 +26,15 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
-
+use App\Http\Controllers\PaystackController;
 use App\Models\{
     User,
     Item
 };
 
-
+// routes/web.php
+Route::post('/withdraw', [PaystackController::class, 'processWithdrawal']);
+Route::get('/form', [PaystackController::class, 'index']);
 Route::get('/forget', [LoginController::class, 'forget'])->name('forget');
 Route::post('password/email', [LoginController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::post('password/reset', [LoginController::class, 'resetPassword'])->name('password.update');
