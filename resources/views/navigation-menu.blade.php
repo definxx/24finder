@@ -63,11 +63,7 @@ text/x-generic navigation-menu.blade.php ( HTML document, ASCII text )
                         <h2 class="flex items-center text-white">
                             <i class="fas fa-wallet mr-2 text-white"></i>
                         
-                            @php
-                        $userpoint =  User::where('id', Auth::id())->first()->points;
-                    @endphp
-                        <h2>Your Earn: {{ $userpoint }}</h2>
-                        
+                          
 
                             
 
@@ -110,10 +106,7 @@ text/x-generic navigation-menu.blade.php ( HTML document, ASCII text )
                         <i class="fas fa-wallet mr-2 text-white"></i>
                       
                     
-                        @php
-                        $userpoint =  User::where('id', Auth::id())->first()->points;
-                    @endphp
-                    <h2>Your Earn: {{ $userpoint }}</h2>
+                      
                     
 
                     </h2>
