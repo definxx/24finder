@@ -47,6 +47,10 @@ class LoginController extends Controller
         return view('auth.forget');
     }
 
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
  
     
     public function sendResetLinkEmail(Request $request)

@@ -121,6 +121,7 @@ return [
     'aliases' => [
       
         'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
+        'Route' => Illuminate\Support\Facades\Route::class,
     ],
 
     'maintenance' => [

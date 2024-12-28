@@ -39,7 +39,7 @@ Route::get('/forget', [LoginController::class, 'forget'])->name('forget');
 Route::post('password/email', [LoginController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::post('password/reset', [LoginController::class, 'resetPassword'])->name('password.update');
 Route::get('/reset-password', [LoginController::class, 'showResetForm'])->name('password.reset');
-
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/process-login', [LoginController::class, 'processLogin'])->name('process.login');
 Route::get('/send-email', [EmailController::class, 'sendWelcomeEmail']);
 Route::get('/send-product-emails', [ItemController::class, 'sendProductEmails']);
