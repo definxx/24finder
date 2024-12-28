@@ -1,3 +1,5 @@
+
+text/x-generic navigation-menu.blade.php ( HTML document, ASCII text )
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,8 +63,8 @@
                         <h2 class="flex items-center text-white">
                             <i class="fas fa-wallet mr-2 text-white"></i>
                         
-                        @php
-                            $userpoint = auth()->user()->point;
+                            @php
+                            $userpoint = auth::check() ? auth()->user()->point : 0;
                         @endphp
                             <h2>Your Earn: {{ $userpoint }}</h2>
 
@@ -108,7 +110,7 @@
                       
                     
                         @php
-                        $userpoint = auth()->user()->point;
+                        $userpoint = auth::check() ? auth()->user()->point : 0;
                     @endphp
                         <h2>Your Earn: {{ $userpoint }}</h2>
 
