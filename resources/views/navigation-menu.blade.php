@@ -61,8 +61,9 @@
                         <h2 class="flex items-center text-white">
                             <i class="fas fa-wallet mr-2 text-white"></i>
                             @php
-                                    $userEarns = Auth::check() ? Auth::user()->points : 0;
-                                @endphp
+    $userEarns = \Illuminate\Support\Facades\Auth::check() ? \Illuminate\Support\Facades\Auth::user()->points : 0;
+@endphp
+
 
                                 Your Earn: {{ $userEarns }}
 
@@ -104,8 +105,9 @@
                     <h2 class="flex items-center text-white">
                         <i class="fas fa-wallet mr-2 text-white"></i>
                         @php
-                            $userPoints = Auth::check() ? Auth::user()->points : 0;
-                        @endphp
+    $userEarns = \Illuminate\Support\Facades\Auth::check() ? \Illuminate\Support\Facades\Auth::user()->points : 0;
+@endphp
+
                         Your Earn: {{ $userPoints }}
                     </h2>
                 </li>

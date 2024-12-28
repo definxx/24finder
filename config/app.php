@@ -122,6 +122,7 @@ return [
       
         'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
         'Route' => Illuminate\Support\Facades\Route::class,
+        'Auth' => Illuminate\Support\Facades\Auth::class,
     ],
 
     'maintenance' => [
