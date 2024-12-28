@@ -63,7 +63,7 @@
                         
                         
 
-                                Your Earn: {{ $userEarns }}
+                            
 
                         </h2>
                     </li>
@@ -105,7 +105,7 @@
                       
                     
 
-                        Your Earn: {{ $userEarns }}
+               
                     </h2>
                 </li>
                 <li><a href="{{ route('dashboard') }}" class="hover:underline text-sm">Home</a></li>
