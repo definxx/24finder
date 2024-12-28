@@ -60,9 +60,7 @@
                     <li>
                         <h2 class="flex items-center text-white">
                             <i class="fas fa-wallet mr-2 text-white"></i>
-                            @php
-                            $userEarns = Auth::check() ? Auth::user()->points ?? 0 : 0;
-                        @endphp
+                        
                         
 
                                 Your Earn: {{ $userEarns }}
@@ -104,12 +102,10 @@
                 <li>
                     <h2 class="flex items-center text-white">
                         <i class="fas fa-wallet mr-2 text-white"></i>
-                        @php
-                        $userEarns = Auth::check() ? Auth::user()->points ?? 0 : 0;
-                    @endphp
+                      
                     
 
-                        Your Earn: {{ $userPoints }}
+                        Your Earn: {{ $userEarns }}
                     </h2>
                 </li>
                 <li><a href="{{ route('dashboard') }}" class="hover:underline text-sm">Home</a></li>
