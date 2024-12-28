@@ -50,9 +50,11 @@ class DashboardController extends Controller
                     ->where('status', 1)
                     ->orderBy('created_at', 'desc')
                     ->get();
+                    
                 $swapItems = $items->whereNotNull('swap_preferences');
                 $saleItems = $items->whereNotNull('price');
-                return view('dashboard', compact('categories', 'swapItems', 'saleItems'));
+                $userEarns = Auth::check() ? Auth::user()->points : 0;
+                return view('dashboard', compact('categories', 'swapItems', 'saleItems','userEarns'));
             }
         } else {
             // Handle case when the user is not logged in
@@ -94,7 +96,8 @@ class DashboardController extends Controller
                     ->get();
                 $swapItems = $items->whereNotNull('swap_preferences');
                 $saleItems = $items->whereNotNull('price');
-                return view('welcome', compact('categories', 'swapItems', 'saleItems'));
+                $userEarns = Auth::check() ? Auth::user()->points : 0;
+                return view('welcome', compact('categories', 'swapItems', 'saleItems','userEarns'));
             }
         } else {
             // Handle case when the user is not logged in
