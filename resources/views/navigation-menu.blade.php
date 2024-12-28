@@ -64,9 +64,10 @@ text/x-generic navigation-menu.blade.php ( HTML document, ASCII text )
                             <i class="fas fa-wallet mr-2 text-white"></i>
                         
                             @php
-                             $userpoint =  Auth::user()->point : 0;
+                            $userpoint = Auth::check() ? Auth::user()->points : 0;
                         @endphp
-                            <h2>Your Earn: {{ $userpoint }}</h2>
+                        <h2>Your Earn: {{ $userpoint }}</h2>
+                        
 
                             
 
@@ -110,9 +111,10 @@ text/x-generic navigation-menu.blade.php ( HTML document, ASCII text )
                       
                     
                         @php
-                        $userpoint =  Auth::user()->point : 0;
+                        $userpoint = Auth::check() ? Auth::user()->points : 0;
                     @endphp
-                        <h2>Your Earn: {{ $userpoint }}</h2>
+                    <h2>Your Earn: {{ $userpoint }}</h2>
+                    
 
                     </h2>
                 </li>
