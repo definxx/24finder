@@ -17,6 +17,9 @@ class EventServiceProvider extends ServiceProvider
         NewItemAdded::class => [
             SendNewItemNotification::class,
         ],
+        \App\Events\UserAction::class => [
+            \App\Listeners\AwardReferralPoints::class,
+        ],
     ];
 
     /**

@@ -12,15 +12,30 @@ class Comment extends Model
     // Fields that can be mass-assigned
     protected $fillable = ['item_id', 'user_id', 'comment'];
 
-    // Define the relationship with the Item model
+    /**
+     * Define the relationship with the Item model
+     */
     public function item()
     {
         return $this->belongsTo(Item::class);
     }
 
-    // Define the relationship with the User model
+    /**
+     * Define the relationship with the User model
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Booted method to listen for the "created" event and trigger actions.
+     */
+    protected static function booted()
+    {
+        static::created(function ($comment) {
+            // Fire UserAction event when a new comment is created
+            event(new \App\Events\UserAction($comment->user));
+        });
     }
 }

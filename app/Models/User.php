@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use App\Mail\WelcomeEmail;
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -69,17 +70,30 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
     protected static function booted()
-    {
-        static::created(function ($user) {
+{
+    static::created(function ($user) {
+        try {
             // Send welcome email automatically after user creation
-            Mail::to($user->email)->send(new WelcomeEmail(
+            Mail::to($user->email)->send(new \App\Mail\WelcomeEmail(
                 'Welcome to 24finder!',
                 'Welcome to 24finder',
                 $user->name,
                 $user->lname
             ));
-        });
-    }
+        } catch (\Exception $e) {
+            // Log the error for debugging purposes
+            Log::error('Failed to send welcome email: ' . $e->getMessage());
+        }
+    });
+
+    static::updated(function ($user) {
+        // Trigger the UserAction event if the email has been verified
+        if ($user->isDirty('email_verified_at') && $user->email_verified_at !== null) {
+            event(new \App\Events\UserAction($user));
+        }
+    });
+}
+
     public function sentMessages()
     {
         return $this->hasMany(Message::class, 'sender_id');
@@ -101,6 +115,8 @@ public function items()
 {
     return $this->hasMany(Item::class);
 }
+
+
 
 
 public function follows()

@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 class Referral extends Model
 {
     // Allow mass assignment for these attributes
-    protected $fillable = ['user_id', 'referred_by'];
+    protected $fillable = ['user_id', 'referred_by', 'completed'];
+
 
     public function user()
     {

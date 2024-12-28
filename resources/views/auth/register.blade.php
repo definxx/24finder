@@ -125,6 +125,9 @@
                         Already have an account?
                         <a href="{{ route('login') }}" class="text-orange-600 hover:underline">Login here</a>.
                     </p>
+                    <div>
+                        <a href="{{route('forget')}}" class="text-orange-600 hover:underline text-sm">Forgot password?</a>
+                    </div>
                 </div>
             </form>
         </div>

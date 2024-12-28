@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // The new user's ID
             $table->foreignId('referred_by')->nullable()->constrained('users')->onDelete('set null'); // The referrer's ID
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }

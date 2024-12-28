@@ -20,54 +20,50 @@ class RegisterController extends Controller
         return view('auth.register');  // Show the registration form
     }
 
-   
     public function processRegister(Request $request)
     {
-        // Validate the form data
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'lname' => ['required', 'string', 'max:255'],
             'tel' => ['required', 'string', 'max:255', 'unique:users,tel'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'referral' => ['nullable', 'exists:users,id'],  // Ensure referral is an existing user ID or null
+            'referral' => ['nullable', 'exists:users,id'], // Ensure referral is an existing user ID or null
         ]);
     
-        // Handle referral logic
         $referredBy = null; // Default to null
     
         if ($request->has('referral') && is_numeric($request->input('referral'))) {
             $referrer = User::find($request->input('referral')); // Find the referrer by user ID
             if ($referrer) {
-                $referredBy = $referrer->id; // Store the referrer ID
-                // Optionally, add points or other rewards for the referrer
-                $referrer->increment('points', 10); // Example: 10 points for each successful referral
+                $referredBy = $referrer->id; // Save the referrer ID
             }
         }
     
-        // Create the new user with a unique referral code and the referrer information
+        // Create the new user
         $newUser = User::create([
             'name' => $request->input('name'),
             'lname' => $request->input('lname'),
             'tel' => $request->input('tel'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
-            'referred_by' => $referredBy, // Save the referral information (who referred the user)
+            'referred_by' => $referredBy, // Save the referral information
         ]);
     
-        // Store the referral relationship in the Referral table
+        // Save the referral relationship
         if ($referredBy) {
             Referral::create([
-                'user_id' => $newUser->id,        // Store the new user's ID
-                'referred_by' => $referredBy,     // Store the referrer's ID
+                'user_id' => $newUser->id,
+                'referred_by' => $referredBy,
             ]);
         }
     
-        // Send email verification link to the newly registered user
+        // Send email verification link
         $newUser->sendEmailVerificationNotification();
     
         // Redirect to the login page with a success message
         return redirect()->route('login')->with('success', 'Registration successful. Please check your email to verify your account.');
     }
+    
     
 }

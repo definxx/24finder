@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('category');
-            $table->text('description')->nullable()->change();
+            $table->text('description')->nullable();
             $table->string('condition');
             $table->unsignedInteger('likes_count')->default(0);
             $table->unsignedInteger('dislikes_count')->default(0);

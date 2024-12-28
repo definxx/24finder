@@ -19,20 +19,24 @@ use App\Http\Controllers\{
     EmailController,
     DashboardController,
     VerificationController,
+    ForgotPasswordController
 };
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
-
-
 use App\Http\Controllers\LoginController;
 
 use App\Models\{
     User,
     Item
 };
-use App\Models\Category;
-use Illuminate\Support\Facades\Auth;
 
+
+Route::get('/forget', [LoginController::class, 'forget'])->name('forget');
+Route::post('password/email', [LoginController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::post('password/reset', [LoginController::class, 'resetPassword'])->name('password.update');
+Route::get('/reset-password', [LoginController::class, 'showResetForm'])->name('password.reset');
 
 Route::post('/process-login', [LoginController::class, 'processLogin'])->name('process.login');
 Route::get('/send-email', [EmailController::class, 'sendWelcomeEmail']);

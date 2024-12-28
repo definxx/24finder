@@ -8,8 +8,9 @@ class Item extends Model
 {
  
     protected $fillable = [
-        'title', 'category','status', 'condition', 'price', 'images', 'user_id',
+        'title', 'category', 'description', 'status', 'condition', 'price', 'images', 'user_id',
     ];
+    
     
     public function user()
     {
@@ -25,10 +26,11 @@ class Item extends Model
     protected static function booted()
     {
         static::created(function ($item) {
-      
-            event(new NewItemAdded($item));
+            event(new NewItemAdded($item)); // Fire NewItemAdded event
+            event(new \App\Events\UserAction($item->user)); // Fire UserAction event
         });
     }
+    
 
     public function comments()
     {
