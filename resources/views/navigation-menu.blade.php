@@ -61,7 +61,9 @@
                         <h2 class="flex items-center text-white">
                             <i class="fas fa-wallet mr-2 text-white"></i>
                         
-                        
+                        @php
+                            $userpoint = auth()->user()->point;
+                        @endphp
                             <h2>Your Earn: {{ $userpoint }}</h2>
 
                             
@@ -105,7 +107,9 @@
                         <i class="fas fa-wallet mr-2 text-white"></i>
                       
                     
-
+                        @php
+                        $userpoint = auth()->user()->point;
+                    @endphp
                         <h2>Your Earn: {{ $userpoint }}</h2>
 
                     </h2>
