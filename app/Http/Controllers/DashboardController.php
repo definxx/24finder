@@ -53,8 +53,12 @@ class DashboardController extends Controller
                     
                 $swapItems = $items->whereNotNull('swap_preferences');
                 $saleItems = $items->whereNotNull('price');
-                $userEarns = Auth::check() ? Auth::user()->points : 0;
-                return view('dashboard', compact('categories', 'swapItems', 'saleItems','userEarns'));
+                $userpoint = 0; // Default points
+    if (Auth::check()) {
+        $user = Auth::user();
+        $userpoint = $user->points;
+    }
+                return view('dashboard', compact('categories', 'swapItems', 'saleItems','userpoint'));
             }
         } else {
             // Handle case when the user is not logged in

@@ -62,6 +62,7 @@
                             <i class="fas fa-wallet mr-2 text-white"></i>
                         
                         
+                            <h2>Your Earn: {{ $userpoint }}</h2>
 
                             
 
@@ -105,7 +106,8 @@
                       
                     
 
-               
+                        <h2>Your Earn: {{ $userpoint }}</h2>
+
                     </h2>
                 </li>
                 <li><a href="{{ route('dashboard') }}" class="hover:underline text-sm">Home</a></li>
