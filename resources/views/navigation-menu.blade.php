@@ -64,7 +64,7 @@ text/x-generic navigation-menu.blade.php ( HTML document, ASCII text )
                             <i class="fas fa-wallet mr-2 text-white"></i>
                         
                             @php
-                            $userpoint = auth()->user()->point : 0;
+                             $userpoint =  Auth::user()->point : 0;
                         @endphp
                             <h2>Your Earn: {{ $userpoint }}</h2>
 
@@ -110,7 +110,7 @@ text/x-generic navigation-menu.blade.php ( HTML document, ASCII text )
                       
                     
                         @php
-                        $userpoint =  auth()->user()->point : 0;
+                        $userpoint =  Auth::user()->point : 0;
                     @endphp
                         <h2>Your Earn: {{ $userpoint }}</h2>
 
