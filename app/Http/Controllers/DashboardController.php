@@ -96,7 +96,7 @@ class DashboardController extends Controller
                     ->get();
                 $swapItems = $items->whereNotNull('swap_preferences');
                 $saleItems = $items->whereNotNull('price');
-                $$userpoint = $user->points;
+                $userpoint = $user->points;
                 return view('welcome', compact('categories', 'swapItems', 'saleItems','userpoint'));
             }
         } else {
