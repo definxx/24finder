@@ -1,5 +1,3 @@
-
-text/x-generic navigation-menu.blade.php ( HTML document, ASCII text )
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,15 +55,16 @@ text/x-generic navigation-menu.blade.php ( HTML document, ASCII text )
 
             <!-- Desktop Menu -->
             <ul class="hidden md:flex space-x-4 text-sm">
-                @if (\Illuminate\Support\Facades\Route::has('login'))
+                @if (Route::has('login'))
                     @auth
                     <li>
                         <h2 class="flex items-center text-white">
                             <i class="fas fa-wallet mr-2 text-white"></i>
-                        
-                          
+                            @php
+    $userEarns = Auth::check() ? Auth::user()->points : 0;
+@endphp
 
-                            
+Your Earn: {{ $userEarns }}
 
                         </h2>
                     </li>
@@ -99,16 +98,15 @@ text/x-generic navigation-menu.blade.php ( HTML document, ASCII text )
 
         <!-- Mobile Menu -->
         <ul id="mobile-menu" class="hidden flex-col space-y-2 bg-orange-700 p-4 rounded mt-2">
-            @if (\Illuminate\Support\Facades\Route::has('login'))
+            @if (Route::has('login'))
                 @auth
                 <li>
                     <h2 class="flex items-center text-white">
                         <i class="fas fa-wallet mr-2 text-white"></i>
-                      
-                    
-                      
-                    
-
+                        @php
+                            $userPoints = Auth::check() ? Auth::user()->points : 0;
+                        @endphp
+                        Your Earn: {{ $userPoints }}
                     </h2>
                 </li>
                 <li><a href="{{ route('dashboard') }}" class="hover:underline text-sm">Home</a></li>
