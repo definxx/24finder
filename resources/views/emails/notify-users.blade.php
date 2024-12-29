@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>24Finder.ng - Effortless Trading</title>
+    <title>Selling something you don’t need any more on 24Finder.ng</title>
     <style>
         /* General styles */
         body {
