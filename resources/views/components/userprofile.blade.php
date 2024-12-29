@@ -62,7 +62,8 @@
 
         <h3 class="text-xl font-bold text-gray-700">{{ $item->title }}</h3>
         <p class="text-gray-500 mb-2"><i class="fas fa-tags text-orange-600"></i> {{ $item->category }}</p>
-        <p class="text-gray-600 mb-4">{{ Str::limit($item->description, 50) }}</p>
+        <p class="text-gray-600 mb-4">{{ \Illuminate\Support\Str::limit($item->description, 50) }}</p>
+
         <p class="text-gray-700 font-semibold mb-2">&#8358;{{ number_format($item->price, 2) }}</p>
 
         <button class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
