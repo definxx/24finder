@@ -27,11 +27,13 @@ class NotifyUserSurvey extends Command
     /**
      * Execute the console command.
      */
+
+
     public function handle()
     {
-        $user = User::all();
-        $user->each(function ($user) {
-            Mail::to($user->email)->send(new DataForm($user));
-        });
+        $users = User::all();
+        foreach ($users as $user) {
+            Mail::to($user->email)->send(new DataForm($user)); 
+        }
     }
 }
