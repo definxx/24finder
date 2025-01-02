@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
 {
     // Schedule the email notification to be sent every 1 minute
     $schedule->command('email:notify-users')->everyMinute();
+    $schedule->command('app:notify-user-survey')->everyMinute();
 }
 
     

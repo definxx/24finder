@@ -15,7 +15,7 @@ class NotifyUserSurvey extends Command
      * @var string
      */
 
-    protected $signature = 'email:notify-user-survey';
+    protected $signature = 'app:notify-user-survey';
 
     /**
      * The console command description.
