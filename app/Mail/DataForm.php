@@ -36,7 +36,7 @@ class DataForm extends Mailable
     public function build()
     {
         return $this->view('emails.UserDataForm')
-            ->subject('24Finder.ng - Feedback Survey')
+            ->subject('24Finder.ng')
             ->with(['user' => $this->user]);
     }
 
