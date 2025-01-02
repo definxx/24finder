@@ -21,7 +21,7 @@ class HourlyNotificationMail extends Mailable
     public function build()
     {
         return $this->view('emails.hourly-notification')
-            ->subject('Earn Money with 24finder')
+            ->subject('Upload and Earn')
             ->with(['user' => $this->user]);
     }
 }
